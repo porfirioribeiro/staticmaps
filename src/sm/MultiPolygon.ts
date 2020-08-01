@@ -1,9 +1,9 @@
-import geoutils from "./geo";
-import { LatLng, infinitBBox, bboxExtended, xToPx, yToPx } from "./utils";
-import { StaticMapCtx } from "./types";
+import { xToPx, yToPx, lonToX, latToY } from "./geo";
+import { infinitBBox, bboxExtended } from "./utils";
+import { LngLat, StaticMapCtx } from "./types";
 
 export interface MultiPolygon {
-  coords: LatLng[][][];
+  coords: LngLat[][][];
   fill?: string;
   fillOpacity?: number | string;
   fillRule?: "nonzero" | "evenodd" | "inherit";
@@ -29,7 +29,7 @@ export function extentMultyPolygon(p: MultiPolygon) {
 
 export function eachLatLngOfMultiPolygon(
   { coords }: MultiPolygon,
-  callback: (ll: LatLng) => void,
+  callback: (ll: LngLat) => void,
 ) {
   for (let j = 0; j < coords.length; j++) {
     for (let k = 0; k < coords[j].length; k++) {
@@ -50,8 +50,8 @@ export function multipolygonToPath(
   const shapeArrays = coords.map((poly) =>
     poly.map((ll) =>
       ll.map((coord) => [
-        xToPx(map, geoutils.lonToX(coord[0], map.zoom)),
-        yToPx(map, geoutils.latToY(coord[1], map.zoom)),
+        xToPx(map, lonToX(coord[0], map.zoom)),
+        yToPx(map, latToY(coord[1], map.zoom)),
       ])
     ).flat()
   );

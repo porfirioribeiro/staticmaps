@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { StaticMap } from "./sm";
-import { rosaMP } from "./res/rosa";
+import { rosaMP, rosaMarker1 } from "./res/rosa";
 import { TileProvider } from "./sm/types";
-import { paraguayOverlay, paraguayMP } from "./res/paraguay";
+import { paraguayOverlay, paraguayMP, paraguayMarkers } from "./res/paraguay";
 import { holedMP } from "./res/holed";
 
 const gmaps: TileProvider = {
@@ -24,6 +24,7 @@ function App() {
         bbox={paraguayOverlay.bbox}
         multiPolygons={[paraguayMP]}
         overlayImages={[paraguayOverlay]}
+        markers={paraguayMarkers}
       />
       <div></div>
       <StaticMap
@@ -32,6 +33,7 @@ function App() {
         padding={[5, 5]}
         tileProvider={gmaps}
         multiPolygons={[rosaMP]}
+        markers={[rosaMarker1]}
       />
       <div></div>
       <StaticMap

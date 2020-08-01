@@ -1,7 +1,21 @@
 import { MultiPolygon } from "../sm/MultiPolygon";
+import { Marker } from "../sm/Marker";
+import markerPath from "./marker.png";
+
+export const rosaMarker1: Marker = {
+  url: markerPath,
+  offsetX: 24,
+  offsetY: 48,
+  width: 48,
+  height: 48,
+  coord: [
+    -8.9804,
+    39.4897,
+  ],
+};
 
 export const rosaMP: MultiPolygon = {
-  fill: '#00C4B359',
+  fill: "#00C4B359",
   stroke: "#00C4B3CC",
   strokeWidth: 2,
   coords: [

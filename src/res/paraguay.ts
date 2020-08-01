@@ -1,5 +1,30 @@
 import { MultiPolygon } from "../sm/MultiPolygon";
 import { OverlayImage } from "../sm/OverlayImage";
+import { Marker } from "../sm/Marker";
+import markerPath from "./marker.png";
+
+const baseMarker: Omit<Marker, "coord"> = {
+  url: markerPath,
+  width: 48,
+  height: 48,
+  // width: 18,
+  // height: 18,
+  // offsetY: 5,
+};
+
+export const paraguayMarkers: Marker[] = [{
+  ...baseMarker,
+  coord: [-61.05320318376404, -21.399121942131075],
+}, {
+  ...baseMarker,
+  coord: [-61.05290474122633, -21.404873703400327],
+}, {
+  ...baseMarker,
+  coord: [-61.069199703793515, -21.40737439857918],
+}, {
+  ...baseMarker,
+  coord: [-61.06982643312247, -21.40053906374267],
+}];
 
 export const paraguayOverlay: OverlayImage = {
   bbox: [

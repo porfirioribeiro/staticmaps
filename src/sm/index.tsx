@@ -1,18 +1,16 @@
 import React, { useReducer } from "react";
 
-import geoutils from "./geo";
-
-import { getMapBBox, calculateZoom, getCenter, getBaselayer } from "./utils";
-import { StaticMapProps, StaticMapCtx, Tile, TileProvider } from "./types";
-import { multipolygonToPath, RenderedMultiPolygon } from "./MultiPolygon";
-import { processOverlayImage, RenderedOverlayImage } from "./OverlayImage";
-
-interface StaticMapsState extends StaticMapCtx {
-  viewBox: string;
-  tiles: Tile[];
-  multiPolygons: RenderedMultiPolygon[];
-  overlayImages: RenderedOverlayImage[];
-}
+import { calculateZoom, getCenter } from "./utils";
+import {
+  StaticMapProps,
+  StaticMapCtx,
+  TileProvider,
+  StaticMapsState,
+} from "./types";
+import { multipolygonToPath } from "./MultiPolygon";
+import { processOverlayImage } from "./OverlayImage";
+import { processMarker } from "./Marker";
+import { processTiles } from "./Tile";
 
 const osmTileProvider: TileProvider = {
   url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -22,23 +20,24 @@ const osmTileProvider: TileProvider = {
   zoomRange: { min: 1, max: 17 },
 };
 
-function create({
-  width,
-  height,
-  padding = [0, 0],
-  tileProvider = osmTileProvider,
-  bbox: pbbox,
-  multiPolygons,
-  overlayImages,
-}: StaticMapProps): StaticMapsState {
-  const bbox = getMapBBox({ bbox: pbbox, multiPolygons, overlayImages });
-  const [zoom, res] = calculateZoom({
+const defaultProps: Partial<StaticMapProps> = {
+  padding: [0, 0],
+  tileProvider: osmTileProvider,
+};
+
+function create(cprops: StaticMapProps): StaticMapsState {
+  const props = { ...defaultProps, ...cprops } as Required<StaticMapProps>;
+  const {
     width,
     height,
-    bbox,
     padding,
     tileProvider,
-  });
+    multiPolygons,
+    overlayImages,
+    markers,
+  } = props;
+
+  const [zoom, res, bbox] = calculateZoom(props);
 
   const w = width / res;
   const h = height / res;
@@ -53,10 +52,11 @@ function create({
     tileProvider,
     bbox,
     zoom,
+    res,
     center,
   };
 
-  const tiles = getBaselayer(map);
+  const tiles = processTiles(map);
 
   return {
     ...map,
@@ -68,6 +68,7 @@ function create({
     overlayImages: (overlayImages || []).map((oi) =>
       processOverlayImage(map, oi)
     ),
+    markers: (markers || []).map((m) => processMarker(map, m)),
   };
 }
 
@@ -83,34 +84,24 @@ export function StaticMap(props: StaticMapProps) {
     height,
     viewBox,
     tiles,
-    tileProvider,
     multiPolygons,
     overlayImages,
+    markers,
   } = ctx;
 
-  console.log(overlayImages);
-
   return (
-    <svg
-      //
-      width={width}
-      height={height}
-      viewBox={viewBox}
-    >
-      {tiles.map((t) => (
-        <image
-          key={t.url}
-          href={t.url}
-          x={t.bbox[0]}
-          y={t.bbox[1]}
-          width={tileProvider.size + 1}
-        ></image>
+    <svg width={width} height={height} viewBox={viewBox}>
+      {tiles.map((t, i) => (
+        <image key={i} {...t} />
       ))}
       {overlayImages.map((oi, i) => (
         <image key={i} {...oi} />
       ))}
       {multiPolygons.map((mp, i) => (
         <path key={i} {...mp} vectorEffect="non-scaling-stroke" />
+      ))}
+      {markers.map((m, i) => (
+        <image key={i} {...m} />
       ))}
     </svg>
   );

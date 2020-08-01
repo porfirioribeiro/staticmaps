@@ -1,6 +1,10 @@
-import { MultiPolygon } from "./MultiPolygon";
-import { BBox } from "./utils";
-import { OverlayImage } from "./OverlayImage";
+import { MultiPolygon, RenderedMultiPolygon } from "./MultiPolygon";
+import { OverlayImage, RenderedOverlayImage } from "./OverlayImage";
+import { Marker, RenderedMarker } from "./Marker";
+
+export type LngLat = [number, number];
+/*                  lng   , lat   , lng   , lat */
+export type BBox = [number, number, number, number];
 
 export interface TileProvider {
   url: string;
@@ -8,6 +12,14 @@ export interface TileProvider {
   subdomains?: string[];
   reverseY?: boolean;
   zoomRange: { min: number; max: number };
+}
+
+export interface RenderedImage {
+  href: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface StaticMapProps {
@@ -18,6 +30,7 @@ export interface StaticMapProps {
   bbox?: BBox;
   multiPolygons?: MultiPolygon[];
   overlayImages?: OverlayImage[];
+  markers?: Marker[];
 }
 
 export interface StaticMapCtx {
@@ -27,10 +40,14 @@ export interface StaticMapCtx {
   tileProvider: TileProvider;
   bbox: BBox;
   zoom: number;
+  res: number;
   center: [number, number];
 }
 
-export interface Tile {
-  bbox: BBox;
-  url: string;
+export interface StaticMapsState extends StaticMapCtx {
+  viewBox: string;
+  tiles: RenderedImage[];
+  multiPolygons: RenderedMultiPolygon[];
+  overlayImages: RenderedOverlayImage[];
+  markers: RenderedMarker[];
 }
