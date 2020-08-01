@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { StaticMap } from "./sm";
+import { rosaMP } from "./res/rosa";
+import { TileProvider } from "./sm/types";
+import { paraguayOverlay, paraguayMP } from "./res/paraguay";
+import { holedMP } from "./res/holed";
+
+const gmaps: TileProvider = {
+  url: "http://mt{s}.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
+  size: 256,
+  subdomains: ["0", "1", "2", "3"],
+  zoomRange: { min: 1, max: 21 },
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StaticMap
+        width={345}
+        height={138}
+        padding={[10, 10]}
+        tileProvider={gmaps}
+        bbox={paraguayOverlay.bbox}
+        multiPolygons={[paraguayMP]}
+        overlayImages={[paraguayOverlay]}
+      />
+      <div></div>
+      <StaticMap
+        width={128}
+        height={128}
+        padding={[5, 5]}
+        tileProvider={gmaps}
+        multiPolygons={[rosaMP]}
+      />
+      <div></div>
+      <StaticMap
+        width={300}
+        height={300}
+        padding={[20, 20]}
+        tileProvider={gmaps}
+        multiPolygons={[holedMP]}
+      />
     </div>
   );
 }
