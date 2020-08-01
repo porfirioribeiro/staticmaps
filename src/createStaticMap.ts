@@ -1,5 +1,3 @@
-import React, { useReducer } from "react";
-
 import { calculateZoom, getCenter } from "./utils";
 import {
   StaticMapProps,
@@ -25,7 +23,7 @@ const defaultProps: Partial<StaticMapProps> = {
   tileProvider: osmTileProvider,
 };
 
-function create(cprops: StaticMapProps): StaticMapsState {
+export function createStaticMap(cprops: StaticMapProps): StaticMapsState {
   const props = { ...defaultProps, ...cprops } as Required<StaticMapProps>;
   const {
     width,
@@ -70,39 +68,4 @@ function create(cprops: StaticMapProps): StaticMapsState {
     ),
     markers: (markers || []).map((m) => processMarker(map, m)),
   };
-}
-
-function reducer(state: StaticMapsState, action: any): StaticMapsState {
-  return state;
-}
-
-export function StaticMap(props: StaticMapProps) {
-  const [ctx] = useReducer(reducer, props, create);
-
-  const {
-    width,
-    height,
-    viewBox,
-    tiles,
-    multiPolygons,
-    overlayImages,
-    markers,
-  } = ctx;
-
-  return (
-    <svg width={width} height={height} viewBox={viewBox}>
-      {tiles.map((t, i) => (
-        <image key={i} {...t} />
-      ))}
-      {overlayImages.map((oi, i) => (
-        <image key={i} {...oi} />
-      ))}
-      {multiPolygons.map((mp, i) => (
-        <path key={i} {...mp} vectorEffect="non-scaling-stroke" />
-      ))}
-      {markers.map((m, i) => (
-        <image key={i} {...m} />
-      ))}
-    </svg>
-  );
 }

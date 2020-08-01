@@ -1,8 +1,6 @@
 import React from "react";
-import "./App.css";
-import { StaticMap } from "./sm";
+import { StaticMap, TileProvider } from "../src";
 import { rosaMP, rosaMarker1 } from "./res/rosa";
-import { TileProvider } from "./sm/types";
 import { paraguayOverlay, paraguayMP, paraguayMarkers } from "./res/paraguay";
 import { holedMP } from "./res/holed";
 
@@ -28,8 +26,8 @@ function App() {
       />
       <div></div>
       <StaticMap
-        width={128}
-        height={128}
+        width={250}
+        height={250}
         padding={[5, 5]}
         tileProvider={gmaps}
         multiPolygons={[rosaMP]}

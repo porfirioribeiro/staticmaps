@@ -1,6 +1,6 @@
 import { eachLatLngOfMultiPolygon } from "./MultiPolygon";
 import { StaticMapCtx, StaticMapProps, BBox, LngLat } from "./types";
-import { lonToX, latToY, xToLon, yToLat, xToPx, yToPx } from "./geo";
+import { lonToX, latToY, xToLon, yToLat } from "./geo";
 import { extentOfMarker } from "./Marker";
 
 export const noop = <T>(x: T) => x;

@@ -1,5 +1,5 @@
-import { MultiPolygon } from "../sm/MultiPolygon";
-import { Marker } from "../sm/Marker";
+import { MultiPolygon } from "../../src/sm/MultiPolygon";
+import { Marker } from "../../src/sm/Marker";
 import markerPath from "./marker.png";
 
 export const rosaMarker1: Marker = {
