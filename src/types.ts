@@ -1,6 +1,6 @@
-import { MultiPolygon, RenderedMultiPolygon } from "./MultiPolygon";
-import { OverlayImage, RenderedOverlayImage } from "./OverlayImage";
-import { Marker, RenderedMarker } from "./Marker";
+import { MultiPolygon, RenderedMultiPolygon } from './MultiPolygon';
+import { OverlayImage, RenderedOverlayImage } from './OverlayImage';
+import { Marker, RenderedMarker } from './Marker';
 
 export type LngLat = [number, number];
 /*                  lng   , lat   , lng   , lat */
@@ -22,7 +22,7 @@ export interface RenderedImage {
   height: number;
 }
 
-export interface StaticMapProps {
+export interface StaticMapOptions {
   width: number;
   height: number;
   padding?: [number, number];
@@ -38,6 +38,7 @@ export interface StaticMapCtx {
   height: number;
   padding: [number, number];
   tileProvider: TileProvider;
+  tileSize: number;
   bbox: BBox;
   zoom: number;
   res: number;

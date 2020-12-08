@@ -1,31 +1,28 @@
-import React, { useReducer } from "react";
-import { StaticMapsState, StaticMapProps } from "./types";
-import { createStaticMap } from "./createStaticMap";
+import React, { useReducer } from 'react';
+import { StaticMapsState, StaticMapOptions } from './types';
+import { createStaticMap } from './createStaticMap';
 
-function reducer(state: StaticMapsState, action: any): StaticMapsState {
+function reducer(state: StaticMapsState, _action: any): StaticMapsState {
   return state;
 }
 
-export function StaticMap(props: StaticMapProps) {
+interface StaticMapProps extends StaticMapOptions {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function StaticMap({ className, style, ...props }: StaticMapProps) {
   const [ctx] = useReducer(reducer, props, createStaticMap);
 
-  const {
-    width,
-    height,
-    viewBox,
-    tiles,
-    multiPolygons,
-    overlayImages,
-    markers,
-  } = ctx;
+  const { width, height, viewBox, tiles, multiPolygons, overlayImages, markers } = ctx;
 
   return (
-    <svg width={width} height={height} viewBox={viewBox}>
+    <svg width={width} height={height} viewBox={viewBox} className={className} style={style}>
       {tiles.map((t, i) => (
         <image key={i} {...t} />
       ))}
       {overlayImages.map((oi, i) => (
-        <image key={i} {...oi} />
+        <image key={i} {...oi} height={Math.abs(oi.height)} />
       ))}
       {multiPolygons.map((mp, i) => (
         <path key={i} {...mp} vectorEffect="non-scaling-stroke" />
