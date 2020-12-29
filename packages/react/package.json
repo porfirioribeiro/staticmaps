@@ -1,0 +1,16 @@
+{
+  "name": "@staticmaps/react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@staticmaps/core": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1"
+  },
+  "scripts": {
+    "build": "echo ##build react"
+  }
+}

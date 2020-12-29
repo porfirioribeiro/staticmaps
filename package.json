@@ -1,0 +1,17 @@
+{
+  "name": "staticmaps",
+  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "build": "lerna run build"
+  }
+}

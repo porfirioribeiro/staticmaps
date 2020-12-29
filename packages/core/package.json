@@ -1,0 +1,10 @@
+{
+  "name": "@staticmaps/core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "echo ##build core"
+  }
+}
