@@ -13,5 +13,5 @@ export function processOverlayImage(map: StaticMapCtx, oi: OverlayImage): Render
   const y = yToPx(map, latToY(oi.bbox[1], map.zoom));
   const width = xToPx(map, lonToX(oi.bbox[2], map.zoom)) - x;
   const height = yToPx(map, latToY(oi.bbox[3], map.zoom)) - y;
-  return { href: oi.url, x, y: map.height - y, width, height };
+  return { href: oi.url, x, y, width, height };
 }

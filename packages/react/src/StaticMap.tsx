@@ -21,7 +21,7 @@ export function StaticMap({ className, style, ...props }: StaticMapProps) {
         <image key={i} {...t} />
       ))}
       {overlayImages.map((oi, i) => (
-        <image key={i} {...oi} height={Math.abs(oi.height)} />
+        <image key={i} {...oi} />
       ))}
       {multiPolygons.map((mp, i) => (
         <path key={i} {...mp} vectorEffect="non-scaling-stroke" />
