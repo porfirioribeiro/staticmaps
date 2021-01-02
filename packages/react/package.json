@@ -1,16 +1,28 @@
 {
-  "name": "@staticmaps/react",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "@staticmaps/core": "^1.0.0"
-  },
-  "peerDependencies": {
-    "react": "^17.0.1"
-  },
-  "scripts": {
-    "build": "echo ##build react"
-  }
+    "name": "@staticmaps/react",
+    "version": "1.0.0",
+    "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+    "license": "MIT",
+    "src": "src/index.ts",
+    "main": "build/staticmaps-react.js",
+    "module": "build/staticmaps-react.modern.js",
+    "unpkg": "build/staticmaps-react.umd.js",
+    "types": "build/index.d.ts",
+    "dependencies": {
+        "@staticmaps/core": "^1.0.0",
+        "react": "^17.0.1"
+    },
+    "peerDependencies": {
+        "@staticmaps/core": "^1.0.0",
+        "react": "^17.0.1"
+    },
+    "scripts": {
+        "build": "microbundle build -f modern,cjs,umd --jsx React.createElement --external react -o build"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.0",
+        "microbundle": "^0.13.0",
+        "typescript": "~4.1.2"
+    }
 }
