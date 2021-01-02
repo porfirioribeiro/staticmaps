@@ -1,5 +1,5 @@
 export { createStaticMap } from './createStaticMap';
-export { osmTileProvider, gmapsTileProvider } from './tileProvider';
+export { osmTileProvider, otmTileProvider, wimTileProvider } from './tileProvider';
 export { polyFromBBox } from './helpers';
 export type { LngLat, BBox, StaticMapCtx, StaticMapOptions, StaticMapsState, RenderedImage } from './createStaticMap';
 export type { TileProvider } from './tileProvider';

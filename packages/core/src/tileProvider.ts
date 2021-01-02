@@ -11,12 +11,19 @@ export const osmTileProvider: TileProvider = {
   size: 256,
   subdomains: [],
   reverseY: false,
+  zoomRange: { min: 1, max: 19 },
+};
+
+export const otmTileProvider: TileProvider = {
+  url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+  size: 256,
+  subdomains: ['a', 'b', 'c'],
   zoomRange: { min: 1, max: 17 },
 };
 
-export const gmapsTileProvider: TileProvider = {
-  url: 'https://mt{s}.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}',
+export const wimTileProvider: TileProvider = {
+  url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   size: 256,
-  subdomains: ['0', '1', '2', '3'],
-  zoomRange: { min: 1, max: 21 },
+  subdomains: [],
+  zoomRange: { min: 1, max: 18 },
 };
