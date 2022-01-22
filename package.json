@@ -30,6 +30,7 @@
     "dev": "tsc -p tsconfig.json -w",
     "lint": "eslint './{src,demo}/**/*.{ts,tsx}'",
     "prepublish": "yarn clean && yarn build",
+    "build:demo": "vite build demo/",
     "preview": "vite serve demo/"
   },
   "eslintConfig": {
