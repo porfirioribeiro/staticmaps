@@ -9,15 +9,26 @@ function reducer(state: StaticMapsState, _action: any): StaticMapsState {
 interface StaticMapProps extends StaticMapOptions {
   className?: string;
   style?: React.CSSProperties;
+  onMouseMove?: React.MouseEventHandler<SVGSVGElement>;
+  onMouseLeave?: React.MouseEventHandler<SVGSVGElement>;
 }
 
-export function StaticMap({ className, style, ...props }: StaticMapProps) {
+export function StaticMap({ className, style, onMouseMove, onMouseLeave, ...props }: StaticMapProps) {
   const [ctx] = useReducer(reducer, props, createStaticMap);
 
-  const { width, height, viewBox, tiles, multiPolygons, overlayImages, markers } = ctx;
+  const { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, tileProvider } = ctx;
 
   return (
-    <svg width={width} height={height} viewBox={viewBox} className={className} style={style}>
+    <svg
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      className={className}
+      style={style}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      <title>{tileProvider.attribution}</title>
       {tiles.map((t, i) => (
         <image key={i} {...t} />
       ))}

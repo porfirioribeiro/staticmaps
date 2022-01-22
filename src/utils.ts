@@ -8,6 +8,9 @@ export const noop = <T>(x: T) => x;
 
 export const infinitBBox: BBox = [Infinity, Infinity, -Infinity, -Infinity];
 
+export const defaultZoomRange = { min: 1, max: 21 };
+export const defaultSize = 256;
+
 export function bboxExtended(bbox: BBox, [lng, lat]: LngLat): BBox {
   return [Math.min(bbox[0], lng), Math.min(bbox[1], lat), Math.max(bbox[2], lng), Math.max(bbox[3], lat)];
 }
@@ -36,12 +39,13 @@ export function getMapBBox({ bbox = infinitBBox, multiPolygons, overlayImages, m
 
         const x = lonToX(m.coord[0], zoom);
         const y = latToY(m.coord[1], zoom);
+        const size = tileProvider?.size ?? defaultSize;
 
         bbox = bboxJoin(bbox, [
-          xToLon(x - ePx[0] / tileProvider!.size, zoom),
-          yToLat(y + ePx[1] / tileProvider!.size, zoom),
-          xToLon(x + ePx[0] / tileProvider!.size, zoom),
-          yToLat(y - ePx[3] / tileProvider!.size, zoom),
+          xToLon(x - ePx[0] / size, zoom),
+          yToLat(y + ePx[1] / size, zoom),
+          xToLon(x + ePx[0] / size, zoom),
+          yToLat(y - ePx[3] / size, zoom),
         ]);
       });
     }
@@ -58,7 +62,7 @@ export function getMapBBox({ bbox = infinitBBox, multiPolygons, overlayImages, m
  * calculate the best zoom level for given extent
  */
 export function calculateZoom(op: Pick<StaticMapCtx, 'bbox' | 'width' | 'height' | 'padding' | 'tileProvider'>): [number, number, BBox] {
-  const { zoomRange, size } = op.tileProvider;
+  const { zoomRange = defaultZoomRange, size = defaultSize } = op.tileProvider;
   const widthPad = op.width - op.padding[0] * 2;
   const heightPad = op.height - op.padding[1] * 2;
   let bbox = op.bbox;

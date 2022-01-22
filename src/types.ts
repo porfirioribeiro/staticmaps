@@ -8,10 +8,11 @@ export type BBox = [number, number, number, number];
 
 export interface TileProvider {
   url: string;
-  size: number;
+  size?: number;
   subdomains?: string[];
   reverseY?: boolean;
-  zoomRange: { min: number; max: number };
+  zoomRange?: { min: number; max: number };
+  attribution?: string;
 }
 
 export interface RenderedImage {

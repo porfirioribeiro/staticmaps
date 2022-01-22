@@ -1,9 +1,10 @@
 /* eslint-disable no-bitwise */
 import { StaticMapCtx, RenderedImage } from './types';
 import { xToPx, yToPx } from './geo';
+import { defaultSize } from './utils';
 
 export function processTiles(map: StaticMapCtx): RenderedImage[] {
-  const { size, url, subdomains } = map.tileProvider;
+  const { size = defaultSize, url, subdomains } = map.tileProvider;
   const xMin = Math.floor(map.center[0] - (0.5 * map.width) / size);
   const yMin = Math.floor(map.center[1] - (0.5 * map.height) / size);
   const xMax = Math.ceil(map.center[0] + (0.5 * map.width) / size);

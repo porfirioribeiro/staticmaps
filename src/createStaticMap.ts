@@ -1,4 +1,4 @@
-import { calculateZoom, getCenter } from './utils';
+import { calculateZoom, defaultSize, getCenter } from './utils';
 import { StaticMapOptions, StaticMapCtx, StaticMapsState } from './types';
 import { processMultiPolygon } from './MultiPolygon';
 import { processOverlayImage } from './OverlayImage';
@@ -28,7 +28,7 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
     height,
     padding,
     tileProvider,
-    tileSize: tileProvider.size,
+    tileSize: tileProvider.size ?? defaultSize,
     bbox,
     zoom,
     res,
