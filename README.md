@@ -1,6 +1,5 @@
 # staticmaps
 
-
 ## Packages
 
 - [ ] @staticmaps/core
