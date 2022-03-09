@@ -3,19 +3,18 @@ lockfileVersion: 5.3
 importers:
 
   .:
-    specifiers:
-      prettier: ^2.5.1
-    devDependencies:
-      prettier: 2.5.1
+    specifiers: {}
 
   packages/core:
     specifiers:
+      '@types/node': ^17.0.21
       prettier: ^2.5.1
       typescript: ^4.6.2
       vite: ^2.8.6
       vite-plugin-dts: ^0.9.9
       vitest: ^0.6.0
     devDependencies:
+      '@types/node': 17.0.21
       prettier: 2.5.1
       typescript: 4.6.2
       vite: 2.8.6
@@ -25,6 +24,7 @@ importers:
   packages/react:
     specifiers:
       '@staticmaps/core': ^1.0.0
+      '@types/node': ^17.0.21
       '@types/react': ^17.0.0
       '@types/react-dom': ^17.0.0
       '@vitejs/plugin-react': ^1.2.0
@@ -40,6 +40,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
+      '@types/node': 17.0.21
       '@types/react': 17.0.39
       '@types/react-dom': 17.0.13
       '@vitejs/plugin-react': 1.2.0
@@ -381,6 +382,10 @@ packages:
 
   /@types/chai/4.3.0:
     resolution: {integrity: sha512-/ceqdqeRraGolFTcfoXNiqjyQhZzbINDngeoAq9GoHa8PPK1yNzTaxWjA6BFWp5Ua9JpXEMSS4s5i9tS0hOJtw==}
+    dev: true
+
+  /@types/node/17.0.21:
+    resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
     dev: true
 
   /@types/prop-types/15.7.4:
