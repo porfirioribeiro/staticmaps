@@ -1,31 +1,42 @@
 {
-    "name": "@staticmaps/react",
-    "version": "1.0.0",
-    "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
-    "license": "MIT",
-    "src": "src/index.ts",
-    "main": "build/react.js",
-    "module": "build/react.modern.js",
-    "unpkg": "build/react.umd.js",
-    "types": "build/index.d.ts",
-    "dependencies": {
-        "@staticmaps/core": "^1.0.0",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
-    },
-    "peerDependencies": {
-        "@staticmaps/core": "^1.0.0",
-        "react": "^17.0.1"
-    },
-    "scripts": {
-        "start": "parcel ./demo/index.html",
-        "build": "microbundle build -f modern,cjs,umd --jsx React.createElement --external react -o build"
-    },
-    "devDependencies": {
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "microbundle": "^0.13.0",
-        "parcel": "^1.12.4",
-        "typescript": "~4.1.2"
-    }
+  "name": "@staticmaps/react",
+  "version": "1.0.0",
+  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "require": "./dist/index.cjs.js",
+    "import": "./dist/index.es.js"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "unpkg": "./dist/index.iife.js",
+  "esmodule": "dist/index.es.js",
+  "umd:main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@staticmaps/core": "^1.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "peerDependencies": {
+    "@staticmaps/core": "^1.0.0",
+    "react": "^17.0.1"
+  },
+  "scripts": {
+    "start": "vite serve ./demo/",
+    "build": "vite build",
+    "format": "prettier src --write"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.2.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.6.2",
+    "vite": "^2.8.6",
+    "vite-plugin-dts": "^0.9.9",
+    "vitest": "^0.6.0"
+  }
 }

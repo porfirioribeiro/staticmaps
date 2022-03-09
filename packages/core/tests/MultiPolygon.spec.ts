@@ -1,5 +1,5 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { assert, expect, test } from 'vitest';
+
 import { extentMultiPolygon, MultiPolygon } from '../src/MultiPolygon';
 
 export const paraguayMP: MultiPolygon = {
@@ -22,7 +22,5 @@ export const paraguayMP: MultiPolygon = {
 test('extentMultiPolygon', () => {
   const p = extentMultiPolygon(paraguayMP);
 
-  assert.equal(p, [-61.06982643312247, -21.40737439857918, -61.05290474122633, -21.399121942131075]);
+  expect(p).toStrictEqual([-61.06982643312247, -21.40737439857918, -61.05290474122633, -21.399121942131075]);
 });
-
-test.run();
