@@ -1,4 +1,4 @@
-import { BBox, RenderedImage, StaticMapCtx } from './createStaticMap';
+import { BBox, RenderedImage, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
 
 export interface OverlayImage {

@@ -1,4 +1,4 @@
-import { LngLat, StaticMapCtx } from './createStaticMap';
+import { LngLat, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
 import { infinitBBox, bboxExtended } from './utils';
 

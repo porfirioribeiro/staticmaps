@@ -1,52 +1,10 @@
-import { calculateZoom, getCenter } from './utils';
-import { MultiPolygon, processMultiPolygon, RenderedMultiPolygon } from './MultiPolygon';
-import { OverlayImage, processOverlayImage, RenderedOverlayImage } from './OverlayImage';
-import { Marker, processMarker, RenderedMarker } from './Marker';
+import { calculateZoom, defaultSize, getCenter } from './utils';
+import { StaticMapOptions, StaticMapCtx, StaticMapsState } from './types';
+import { processMultiPolygon } from './MultiPolygon';
+import { processOverlayImage } from './OverlayImage';
+import { processMarker } from './Marker';
 import { processTiles } from './Tile';
-import { osmTileProvider, TileProvider } from './tileProvider';
-
-export type LngLat = [number, number];
-/*                  lng   , lat   , lng   , lat */
-export type BBox = [number, number, number, number];
-
-export interface RenderedImage {
-  href: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export interface StaticMapOptions {
-  width: number;
-  height: number;
-  padding?: [number, number];
-  tileProvider?: TileProvider;
-  bbox?: BBox;
-  multiPolygons?: MultiPolygon[];
-  overlayImages?: OverlayImage[];
-  markers?: Marker[];
-}
-
-export interface StaticMapCtx {
-  width: number;
-  height: number;
-  padding: [number, number];
-  tileProvider: TileProvider;
-  tileSize: number;
-  bbox: BBox;
-  zoom: number;
-  res: number;
-  center: [number, number];
-}
-
-export interface StaticMapsState extends StaticMapCtx {
-  viewBox: string;
-  tiles: RenderedImage[];
-  multiPolygons: RenderedMultiPolygon[];
-  overlayImages: RenderedOverlayImage[];
-  markers: RenderedMarker[];
-}
+import { osmTileProvider } from './tileProvider';
 
 const defaultProps: Partial<StaticMapOptions> = {
   padding: [0, 0],
@@ -70,7 +28,7 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
     height,
     padding,
     tileProvider,
-    tileSize: tileProvider.size,
+    tileSize: tileProvider.size ?? defaultSize,
     bbox,
     zoom,
     res,

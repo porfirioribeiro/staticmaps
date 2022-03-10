@@ -1,4 +1,4 @@
-import { LngLat, RenderedImage, StaticMapCtx } from './createStaticMap';
+import { LngLat, RenderedImage, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
 
 export interface Marker {

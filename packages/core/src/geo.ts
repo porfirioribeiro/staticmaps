@@ -1,4 +1,4 @@
-import { StaticMapCtx } from './createStaticMap';
+import { StaticMapCtx } from './types';
 
 /**
  * transform tile number to pixel on image canvas

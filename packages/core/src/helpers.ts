@@ -1,4 +1,4 @@
-import { BBox, LngLat } from './createStaticMap';
+import { BBox, LngLat } from './types';
 
 export function polyFromBBox(bbox: BBox): LngLat[][][] {
   return [
