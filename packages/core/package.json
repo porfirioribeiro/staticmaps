@@ -17,6 +17,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "vite build",
+    "dev": "vite build --watch",
     "test": "vitest run",
     "format": "prettier src --write"
   },

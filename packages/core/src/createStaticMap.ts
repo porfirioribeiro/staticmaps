@@ -39,6 +39,7 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
 
   return Object.assign({}, map, {
     viewBox,
+    attribution: tileProvider.attribution ?? '',
     tiles,
     multiPolygons: (multiPolygons || []).map(mp => processMultiPolygon(map, mp)),
     overlayImages: (overlayImages || []).map(oi => processOverlayImage(map, oi)),

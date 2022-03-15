@@ -3,10 +3,12 @@
 
 	export let options: StaticMapOptions;
 
-	let { width, height, viewBox, tiles, multiPolygons } = {} as StaticMapsState;
+	let { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
+		{} as StaticMapsState;
 
 	$: {
-		({ width, height, viewBox, tiles, multiPolygons } = createStaticMap(options));
+		({ width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
+			createStaticMap(options));
 		console.log('updates', width, height);
 	}
 </script>
@@ -15,7 +17,36 @@
 	{#each tiles as tile}
 		<image {...tile} />
 	{/each}
+	{#each overlayImages as overlayImage}
+		<image {...overlayImage} />
+	{/each}
 	{#each multiPolygons as multiPolygon}
 		<path {...multiPolygon} vector-effect="non-scaling-stroke" />
 	{/each}
+	{#each markers as marker}
+		<image {...marker} />
+	{/each}
+
+	{#if width >= 200}
+		<foreignObject x="0" y="0" {width} {height}>
+			<div>{@html attribution}</div>
+		</foreignObject>
+	{:else}
+		<title>{@html attribution}</title>
+	{/if}
 </svg>
+
+<style>
+	svg {
+		position: relative;
+	}
+	svg div {
+		background: rgba(255, 255, 255, 0.7);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		padding: 0 5px;
+		color: #333;
+		font: 12px/1.5 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	}
+</style>

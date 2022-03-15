@@ -48,6 +48,7 @@ export interface StaticMapCtx {
 
 export interface StaticMapsState extends StaticMapCtx {
   viewBox: string;
+  attribution: string;
   tiles: RenderedImage[];
   multiPolygons: RenderedMultiPolygon[];
   overlayImages: RenderedOverlayImage[];
