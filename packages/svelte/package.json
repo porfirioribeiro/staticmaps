@@ -3,8 +3,8 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
-		"package": "svelte-kit package",
+		"build:demo": "svelte-kit build",
+		"build": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"prepare": "svelte-kit sync",
 		"test": "playwright test",
@@ -14,12 +14,12 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.19.2",
+		"@playwright/test": "^1.20.0",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.15.0",
 		"@typescript-eslint/parser": "^5.15.0",
-		"eslint": "^7.32.0",
+		"eslint": "^8.11.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^3.4.1",
 		"prettier": "^2.5.1",
@@ -33,6 +33,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@staticmaps/core": "workspace:^1.0.0"
+		"@staticmaps/core": "^1.0.0"
 	}
 }
