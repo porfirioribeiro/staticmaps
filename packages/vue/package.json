@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@staticmaps/core": "^1.0.0",
-    "vue": "^3.2.25"
+    "vue": "^3.2.31"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.2.0",
+    "@vitejs/plugin-vue": "^2.2.4",
     "prettier": "^2.6.0",
-    "typescript": "^4.5.4",
-    "vite": "^2.8.0"
+    "typescript": "^4.6.2",
+    "vite": "^2.8.6"
   }
 }
