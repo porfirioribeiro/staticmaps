@@ -1,0 +1,29 @@
+// Vitest Snapshot v1
+
+exports[`renders 1`] = `
+<div>
+  <svg
+    height="138"
+    viewBox="0 0 345 138"
+    width="345"
+  >
+    <title>
+      &copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors
+    </title>
+    <image
+      height="256"
+      href="https://tile.openstreetmap.org/14/5412/9189.png"
+      width="256"
+      x="-91"
+      y="-75"
+    />
+    <image
+      height="256"
+      href="https://tile.openstreetmap.org/14/5413/9189.png"
+      width="256"
+      x="165"
+      y="-75"
+    />
+  </svg>
+</div>
+`;

@@ -1,10 +1,24 @@
 {
   "name": "@staticmaps/vue",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "require": "./dist/index.cjs.js",
+    "import": "./dist/index.es.js"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "unpkg": "./dist/index.iife.js",
+  "esmodule": "dist/index.es.js",
+  "umd:main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "test": "vitest run --coverage",
     "preview": "vite preview",
     "format": "prettier src --write"
   },
@@ -14,8 +28,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.4",
+    "@vue/test-utils": "^2.0.0-rc.17",
+    "c8": "^7.11.0",
+    "happy-dom": "^2.49.2",
     "prettier": "^2.6.0",
     "typescript": "^4.6.2",
-    "vite": "^2.8.6"
+    "vite": "^2.8.6",
+    "vite-plugin-dts": "^0.9.10",
+    "vitest": "^0.7.7"
   }
 }

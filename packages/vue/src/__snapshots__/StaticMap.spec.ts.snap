@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`renders 1`] = `
+"<svg width=\\"345\\" height=\\"138\\" viewBox=\\"0 0 345 138\\">
+  <image href=\\"https://tile.openstreetmap.org/14/5412/9189.png\\" x=\\"-91\\" y=\\"-75\\" width=\\"256\\" height=\\"256\\"></image>
+  <image href=\\"https://tile.openstreetmap.org/14/5413/9189.png\\" x=\\"165\\" y=\\"-75\\" width=\\"256\\" height=\\"256\\"></image>
+</svg>
+<div>Hello</div>"
+`;
