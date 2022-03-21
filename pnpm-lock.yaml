@@ -101,47 +101,6 @@ importers:
       tslib: 2.3.1
       typescript: 4.6.2
 
-  packages/svelte/package:
-    specifiers:
-      '@playwright/test': ^1.20.0
-      '@staticmaps/core': ^1.0.0
-      '@sveltejs/adapter-auto': next
-      '@sveltejs/kit': next
-      '@typescript-eslint/eslint-plugin': ^5.16.0
-      '@typescript-eslint/parser': ^5.16.0
-      c8: ^7.11.0
-      eslint: ^8.11.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-svelte3: ^3.4.1
-      prettier: ^2.6.0
-      prettier-plugin-svelte: ^2.6.0
-      svelte: ^3.46.4
-      svelte-check: ^2.4.6
-      svelte-preprocess: ^4.10.4
-      svelte2tsx: ^0.5.6
-      tslib: ^2.3.1
-      typescript: ~4.6.2
-    dependencies:
-      '@staticmaps/core': link:../../core
-    devDependencies:
-      '@playwright/test': 1.20.0
-      '@sveltejs/adapter-auto': 1.0.0-next.33
-      '@sveltejs/kit': 1.0.0-next.301_svelte@3.46.4
-      '@typescript-eslint/eslint-plugin': 5.16.0_3fed250b11519414a4c7d52468dd6bf5
-      '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.2
-      c8: 7.11.0
-      eslint: 8.11.0
-      eslint-config-prettier: 8.5.0_eslint@8.11.0
-      eslint-plugin-svelte3: 3.4.1_eslint@8.11.0+svelte@3.46.4
-      prettier: 2.6.0
-      prettier-plugin-svelte: 2.6.0_prettier@2.6.0+svelte@3.46.4
-      svelte: 3.46.4
-      svelte-check: 2.4.6_svelte@3.46.4
-      svelte-preprocess: 4.10.4_svelte@3.46.4+typescript@4.6.2
-      svelte2tsx: 0.5.6_svelte@3.46.4+typescript@4.6.2
-      tslib: 2.3.1
-      typescript: 4.6.2
-
   packages/vue:
     specifiers:
       '@staticmaps/core': ^1.0.0
