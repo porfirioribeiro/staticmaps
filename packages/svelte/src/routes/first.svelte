@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	export const prerender = true;
-	export const hidrate = false;
+	export const hydrate = false;
 	export const router = false;
 </script>
 
