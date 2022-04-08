@@ -11,7 +11,10 @@
 				<a href="/">Home</a>
 			</li>
 			<li>
-				<a href="/first">Server Side Only</a>
+				<a href="/server-side">Server Side Only</a>
+			</li>
+			<li>
+				<a href="/polygon">Polygon</a>
 			</li>
 		</ul>
 	</nav>

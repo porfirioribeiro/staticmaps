@@ -11,6 +11,9 @@
 </script>
 
 <h1>Server Side Only</h1>
+<p>
+	This page is server side rendered only, there is no javascript used here
+</p>
 
 <StaticMap
 	options={{
