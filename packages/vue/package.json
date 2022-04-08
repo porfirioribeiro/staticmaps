@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
-    "@vue/test-utils": "^2.0.0-rc.17",
+    "@vue/test-utils": "^2.0.0-rc.19",
     "c8": "^7.11.0",
     "happy-dom": "^2.55.0",
     "prettier": "^2.6.2",
