@@ -4,12 +4,10 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": "v14.19.1"
-  },
   "scripts": {
     "test": "pnpm test -r",
     "build": "pnpm build -r",
-    "format": "pnpm format -r"
+    "format": "pnpm format -r",
+    "build:ci": "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm build && npx pnpm run build:demo -C packages/svelte"
   }
 }
