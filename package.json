@@ -4,6 +4,9 @@
   "license": "MIT",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "v14.19.1"
+  },
   "scripts": {
     "test": "pnpm test -r",
     "build": "pnpm build -r",
