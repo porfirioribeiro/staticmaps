@@ -2,8 +2,12 @@ import { LngLat, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
 import { infinitBBox, bboxExtended } from './utils';
 
+type CoordsLinearRing = LngLat[];
+type CoordsPolygon = CoordsLinearRing[];
+type CoordsMultiPolygon = CoordsPolygon[];
+
 export interface MultiPolygon {
-  coords: LngLat[][][];
+  coords: CoordsMultiPolygon;
   fill?: string;
   fillOpacity?: number | string;
   fillRule?: 'nonzero' | 'evenodd' | 'inherit';
@@ -41,9 +45,9 @@ export function eachLatLngOfMultiPolygon({ coords }: MultiPolygon, callback: (ll
  * Render MultiPolygon to SVG
  */
 export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): RenderedMultiPolygon {
-  const shapeArrays = mpp.coords.map(poly =>
-    poly.map(ll => ll.map(coord => [xToPx(map, lonToX(coord[0], map.zoom)), yToPx(map, latToY(coord[1], map.zoom))])).flat(),
-  );
+  const shapeArrays = mpp.coords
+    .map(poly => poly.map(lr => lr.map(ll => [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))])))
+    .flat();
 
   const pathArrays = shapeArrays.map(points => {
     const startPoint = points.shift()!;
