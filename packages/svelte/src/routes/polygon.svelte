@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { osmTileProvider } from '@staticmaps/core';
 	import StaticMap from '$lib/StaticMap.svelte';
-	import { osmTileProvider, type MultiPolygon } from '@staticmaps/core';
 </script>
 
 <h1 class="py-8">Polygons</h1>
@@ -19,13 +19,16 @@
 				stroke: '#00C4B3CC',
 				strokeWidth: 2,
 				coords: [
+					// polygon
 					[
+						// exterior line ring
 						[
 							[-80.19, 25.77],
 							[-66.11, 18.46],
 							[-64.75, 32.32],
 							[-80.19, 25.77]
 						],
+						// interior line rings (holes)
 						[
 							[-76.37, 25.79],
 							[-71.19, 27.95],
@@ -61,7 +64,9 @@
 				stroke: 'blue',
 				strokeWidth: 2,
 				coords: [
+					// polygon
 					[
+						// exterior line ring
 						[
 							[40.0, 40.0],
 							[20.0, 45.0],
@@ -69,7 +74,9 @@
 							[40.0, 40.0]
 						]
 					],
+					// polygon
 					[
+						// exterior line ring
 						[
 							[20.0, 35.0],
 							[10.0, 30.0],
@@ -78,6 +85,7 @@
 							[45.0, 20.0],
 							[20.0, 35.0]
 						],
+						// interior line rings (holes)
 						[
 							[30.0, 20.0],
 							[20.0, 15.0],
@@ -90,3 +98,11 @@
 		]
 	}}
 />
+
+<p class="my-24">
+	<a
+		target="__blank"
+		href="https://github.com/porfirioribeiro/staticmaps/blob/main/packages/svelte/src/routes/polygon.svelte"
+		>See source on GitHub</a
+	>
+</p>

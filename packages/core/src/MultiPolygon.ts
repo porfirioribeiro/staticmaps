@@ -3,7 +3,7 @@ import { xToPx, yToPx, lonToX, latToY } from './geo';
 import { infinitBBox, bboxExtended } from './utils';
 
 type CoordsLinearRing = LngLat[];
-type CoordsPolygon = CoordsLinearRing[];
+type CoordsPolygon = [exterior: CoordsLinearRing, ...holes: CoordsLinearRing[]];
 type CoordsMultiPolygon = CoordsPolygon[];
 
 export interface MultiPolygon {
