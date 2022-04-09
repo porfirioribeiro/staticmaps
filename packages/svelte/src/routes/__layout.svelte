@@ -26,16 +26,7 @@
 
 <style lang="scss">
 	:global {
-		body {
-            min-height: 100vh;
-			font-family: Arial, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-				Cantarell, Open Sans, Helvetica Neue, sans-serif;
-
-			display: grid;
-			grid-template:
-				'h h' max-content
-				's m' auto / max-content auto;
-		}
+		@import '../style.scss';
 	}
 	header {
 		grid-area: h;

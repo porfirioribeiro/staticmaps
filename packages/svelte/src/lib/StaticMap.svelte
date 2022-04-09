@@ -1,16 +1,18 @@
 <script lang="ts">
-	import { createStaticMap, type StaticMapOptions, type StaticMapsState } from '@staticmaps/core';
+	import {
+		createStaticMap,
+		dashedKeys,
+		type StaticMapOptions,
+		type StaticMapsState
+	} from '@staticmaps/core';
 
 	export let options: StaticMapOptions;
 
 	let { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
 		{} as StaticMapsState;
 
-	$: {
-		({ width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
-			createStaticMap(options));
-		console.log('updates', width, height);
-	}
+	$: ({ width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
+		createStaticMap(options));
 </script>
 
 <svg {width} {height} {viewBox}>
@@ -21,7 +23,7 @@
 		<image {...overlayImage} />
 	{/each}
 	{#each multiPolygons as multiPolygon}
-		<path {...multiPolygon} vector-effect="non-scaling-stroke" />
+		<path {...dashedKeys(multiPolygon)} vector-effect="non-scaling-stroke" />
 	{/each}
 	{#each markers as marker}
 		<image {...marker} />

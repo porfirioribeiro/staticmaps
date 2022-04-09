@@ -1,0 +1,41 @@
+body {
+	min-height: 100vh;
+	font-family: Arial, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+		Open Sans, Helvetica Neue, sans-serif;
+
+	display: grid;
+	grid-template:
+		'h h' max-content
+		's m' auto / max-content auto;
+}
+
+$rules: (
+	'padding': 'p',
+	'margin': 'm'
+);
+$sizes: 0, 8, 16, 24;
+
+@each $rule, $name in $rules {
+	@each $size in $sizes {
+		.#{$name}t-#{$size},
+		.#{$name}y-#{$size},
+		.#{$name}-#{$size} {
+			#{$rule}-top: #{$size}px;
+		}
+		.#{$name}b-#{$size},
+		.#{$name}y-#{$size},
+		.#{$name}-#{$size} {
+			#{$rule}-bottom: #{$size}px;
+		}
+		.#{$name}l-#{$size},
+		.#{$name}x-#{$size},
+		.#{$name}-#{$size} {
+			#{$rule}-left: #{$size}px;
+		}
+		.#{$name}r-#{$size},
+		.#{$name}x-#{$size},
+		.#{$name}-#{$size} {
+			#{$rule}-right: #{$size}px;
+		}
+	}
+}
