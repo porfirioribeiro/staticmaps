@@ -5,7 +5,7 @@ import { infinitBBox, bboxExtended } from './utils';
 type CoordsLineString = LngLat[];
 
 export interface LineString {
-  coords: CoordsLineString;
+  coords: CoordsLineString | CoordsLineString[];
   stroke?: string;
   strokeDasharray?: string | number;
   strokeDashoffset?: string | number;
@@ -27,8 +27,11 @@ export function extentLineString(p: LineString) {
 }
 
 export function eachLatLngOfLineString({ coords }: LineString, callback: (ll: LngLat) => void) {
-  for (let j = 0; j < coords.length; j += 1) {
-    callback(coords[j]);
+  const c = fixCoords(coords);
+  for (let j = 0; j < c.length; j += 1) {
+    for (let k = 0; k < c[j].length; k += 1) {
+      callback(c[j][k]);
+    }
   }
 }
 
@@ -42,7 +45,17 @@ const pointsToPathPart = (map: StaticMapCtx, [startPoint, ...points]: LngLat[]):
  * Render LineString to SVG
  */
 export function processLineString(map: StaticMapCtx, ls: LineString): RenderedLineString {
-  const out = Object.assign({ d: pointsToPathPart(map, ls.coords) }, ls);
+  const out = Object.assign(
+    {
+      d: fixCoords(ls.coords)
+        .map(c => pointsToPathPart(map, c))
+        .join(' '),
+    },
+    ls,
+  );
   delete (out as any).coords;
   return out;
 }
+
+const fixCoords = (coords: CoordsLineString | CoordsLineString[]) =>
+  !Array.isArray(coords[0][0]) ? [coords as CoordsLineString] : (coords as CoordsLineString[]);

@@ -1,6 +1,7 @@
 import { calculateZoom, defaultSize, getCenter } from './utils';
 import { StaticMapOptions, StaticMapCtx, StaticMapsState } from './types';
 import { processPolygon } from './Polygon';
+import { processLineString } from './LineString';
 import { processOverlayImage } from './OverlayImage';
 import { processMarker } from './Marker';
 import { processTiles } from './Tile';

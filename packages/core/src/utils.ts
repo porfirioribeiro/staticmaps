@@ -1,9 +1,9 @@
 /* eslint-disable no-continue, no-param-reassign */
-import { eachLatLngOfPolygon } from './Polygon';
 import { lonToX, latToY, xToLon, yToLat } from './geo';
-import { extentOfMarker } from './Marker';
 import { BBox, LngLat, StaticMapCtx, StaticMapOptions } from './types';
+import { eachLatLngOfPolygon } from './Polygon';
 import { eachLatLngOfLineString } from './LineString';
+import { extentOfMarker } from './Marker';
 
 export const noop = <T>(x: T) => x;
 
