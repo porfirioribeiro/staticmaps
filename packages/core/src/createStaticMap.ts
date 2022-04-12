@@ -5,6 +5,7 @@ import { processOverlayImage } from './OverlayImage';
 import { processMarker } from './Marker';
 import { processTiles } from './Tile';
 import { osmTileProvider } from './tileProvider';
+import { processLineString } from './LineString';
 
 const defaultProps: Partial<StaticMapOptions> = {
   padding: [0, 0],
@@ -13,7 +14,7 @@ const defaultProps: Partial<StaticMapOptions> = {
 
 export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
   const props = Object.assign({}, defaultProps, cprops) as Required<StaticMapOptions>;
-  const { width, height, padding, tileProvider, multiPolygons, overlayImages, markers } = props;
+  const { width, height, padding, tileProvider, multiPolygons, lineStrings, overlayImages, markers } = props;
 
   const [zoom, res, bbox] = calculateZoom(props);
 
@@ -42,6 +43,7 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
     attribution: tileProvider.attribution ?? '',
     tiles,
     multiPolygons: (multiPolygons || []).map(mp => processMultiPolygon(map, mp)),
+    lineStrings: (lineStrings || []).map(ls => processLineString(map, ls)),
     overlayImages: (overlayImages || []).map(oi => processOverlayImage(map, oi)),
     markers: (markers || []).map(m => processMarker(map, m)),
   });

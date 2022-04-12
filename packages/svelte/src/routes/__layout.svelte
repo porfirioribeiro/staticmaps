@@ -16,6 +16,9 @@
 			<li>
 				<a href="/polygon">Polygon</a>
 			</li>
+			<li>
+				<a href="/linestring">LineString</a>
+			</li>
 		</ul>
 	</nav>
 </aside>

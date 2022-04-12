@@ -8,11 +8,29 @@
 
 	export let options: StaticMapOptions;
 
-	let { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
-		{} as StaticMapsState;
+	let {
+		width,
+		height,
+		viewBox,
+		tiles,
+		multiPolygons,
+		lineStrings,
+		overlayImages,
+		markers,
+		attribution
+	} = {} as StaticMapsState;
 
-	$: ({ width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
-		createStaticMap(options));
+	$: ({
+		width,
+		height,
+		viewBox,
+		tiles,
+		multiPolygons,
+		lineStrings,
+		overlayImages,
+		markers,
+		attribution
+	} = createStaticMap(options));
 </script>
 
 <svg {width} {height} {viewBox}>
@@ -24,6 +42,9 @@
 	{/each}
 	{#each multiPolygons as multiPolygon}
 		<path {...dashedKeys(multiPolygon)} vector-effect="non-scaling-stroke" />
+	{/each}
+	{#each lineStrings as lineString}
+		<path {...dashedKeys(lineString)} fill="transparent" vector-effect="non-scaling-stroke" />
 	{/each}
 	{#each markers as marker}
 		<image {...marker} />

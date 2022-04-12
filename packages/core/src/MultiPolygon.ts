@@ -45,9 +45,7 @@ export function eachLatLngOfMultiPolygon({ coords }: MultiPolygon, callback: (ll
  * Render MultiPolygon to SVG
  */
 export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): RenderedMultiPolygon {
-  const shapeArrays = mpp.coords
-    .map(poly => poly.map(lr => lr.map(ll => [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))])))
-    .flat();
+  const shapeArrays = mpp.coords.map(poly => poly.map(lr => lr.map(ll => llToPx(map, ll)))).flat();
 
   const pathArrays = shapeArrays.map(points => {
     const startPoint = points.shift()!;
@@ -60,4 +58,7 @@ export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): Rende
   const out = Object.assign({ d: pathArrays.join(' ') }, mpp);
   delete (out as any).coords;
   return out;
+}
+export function llToPx(map: StaticMapCtx, ll: LngLat): number[] {
+  return [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))];
 }
