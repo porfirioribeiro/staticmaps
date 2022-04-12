@@ -8,10 +8,10 @@
 
 	export let options: StaticMapOptions;
 
-	let { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
+	let { width, height, viewBox, tiles, polygons, overlayImages, markers, attribution } =
 		{} as StaticMapsState;
 
-	$: ({ width, height, viewBox, tiles, multiPolygons, overlayImages, markers, attribution } =
+	$: ({ width, height, viewBox, tiles, polygons, overlayImages, markers, attribution } =
 		createStaticMap(options));
 </script>
 
@@ -22,8 +22,8 @@
 	{#each overlayImages as overlayImage}
 		<image {...overlayImage} />
 	{/each}
-	{#each multiPolygons as multiPolygon}
-		<path {...dashedKeys(multiPolygon)} vector-effect="non-scaling-stroke" />
+	{#each polygons as polygon}
+		<path {...dashedKeys(polygon)} vector-effect="non-scaling-stroke" />
 	{/each}
 	{#each markers as marker}
 		<image {...marker} />

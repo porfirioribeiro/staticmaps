@@ -13,7 +13,7 @@
 		height: 500,
 		padding: [10, 10],
 		tileProvider: osmTileProvider,
-		multiPolygons: [
+		polygons: [
 			{
 				fill: 'red',
 				stroke: '#00C4B3CC',
@@ -57,7 +57,7 @@
 		height: 500,
 		padding: [10, 10],
 		tileProvider: osmTileProvider,
-		multiPolygons: [
+		polygons: [
 			{
 				fill: 'blue',
 				fillOpacity: 0.2,

@@ -4,10 +4,9 @@ import { infinitBBox, bboxExtended } from './utils';
 
 type CoordsLinearRing = LngLat[];
 type CoordsPolygon = [exterior: CoordsLinearRing, ...holes: CoordsLinearRing[]];
-type CoordsMultiPolygon = CoordsPolygon[];
 
-export interface MultiPolygon {
-  coords: CoordsMultiPolygon;
+export interface Polygon {
+  coords: CoordsPolygon[];
   fill?: string;
   fillOpacity?: number | string;
   fillRule?: 'nonzero' | 'evenodd' | 'inherit';
@@ -21,17 +20,17 @@ export interface MultiPolygon {
   strokeWidth?: number | string;
 }
 
-export interface RenderedMultiPolygon extends Omit<MultiPolygon, 'coords'> {
+export interface RenderedPolygon extends Omit<Polygon, 'coords'> {
   d: string;
 }
 
-export function extentMultiPolygon(p: MultiPolygon) {
+export function extentPolygon(p: Polygon) {
   let bbox = infinitBBox;
-  eachLatLngOfMultiPolygon(p, ll => (bbox = bboxExtended(bbox, ll)));
+  eachLatLngOfPolygon(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }
 
-export function eachLatLngOfMultiPolygon({ coords }: MultiPolygon, callback: (ll: LngLat) => void) {
+export function eachLatLngOfPolygon({ coords }: Polygon, callback: (ll: LngLat) => void) {
   for (let j = 0; j < coords.length; j += 1) {
     for (let k = 0; k < coords[j].length; k += 1) {
       for (let l = 0; l < coords[j][k].length - 1; l += 1) {
@@ -42,9 +41,9 @@ export function eachLatLngOfMultiPolygon({ coords }: MultiPolygon, callback: (ll
 }
 
 /**
- * Render MultiPolygon to SVG
+ * Render Polygon to SVG
  */
-export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): RenderedMultiPolygon {
+export function processPolygon(map: StaticMapCtx, mpp: Polygon): RenderedPolygon {
   const shapeArrays = mpp.coords
     .map(poly => poly.map(lr => lr.map(ll => [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))])))
     .flat();

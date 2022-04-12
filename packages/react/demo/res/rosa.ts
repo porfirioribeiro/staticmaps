@@ -1,4 +1,4 @@
-import { Marker, MultiPolygon } from '../../src';
+import { Marker, Polygon } from '../../src';
 import markerPath from './marker.png';
 
 export const rosaMarker1: Marker = {
@@ -10,7 +10,7 @@ export const rosaMarker1: Marker = {
   coord: [-8.9804, 39.4897],
 };
 
-export const rosaMP: MultiPolygon = {
+export const rosaMP: Polygon = {
   fill: '#00C4B359',
   stroke: '#00C4B3CC',
   strokeWidth: 2,

@@ -1,8 +1,8 @@
 import { assert, expect, test } from 'vitest';
 
-import { extentMultiPolygon, MultiPolygon } from '../src/MultiPolygon';
+import { extentPolygon, Polygon } from '../src/Polygon';
 
-export const paraguayMP: MultiPolygon = {
+export const paraguayMP: Polygon = {
   fill: 'transparent',
   stroke: '#00C4B3CC',
   strokeWidth: 2,
@@ -19,8 +19,8 @@ export const paraguayMP: MultiPolygon = {
   ],
 };
 
-test('extentMultiPolygon', () => {
-  const p = extentMultiPolygon(paraguayMP);
+test('extentPolygon', () => {
+  const p = extentPolygon(paraguayMP);
 
   expect(p).toStrictEqual([-61.06982643312247, -21.40737439857918, -61.05290474122633, -21.399121942131075]);
 });
