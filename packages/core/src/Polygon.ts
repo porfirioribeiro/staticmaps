@@ -6,7 +6,7 @@ type CoordsLinearRing = LngLat[];
 type CoordsPolygon = [exterior: CoordsLinearRing, ...holes: CoordsLinearRing[]];
 
 export interface Polygon {
-  coords: CoordsPolygon[];
+  coords: CoordsPolygon | CoordsPolygon[];
   fill?: string;
   fillOpacity?: number | string;
   fillRule?: 'nonzero' | 'evenodd' | 'inherit';
@@ -31,10 +31,11 @@ export function extentPolygon(p: Polygon) {
 }
 
 export function eachLatLngOfPolygon({ coords }: Polygon, callback: (ll: LngLat) => void) {
-  for (let j = 0; j < coords.length; j += 1) {
-    for (let k = 0; k < coords[j].length; k += 1) {
-      for (let l = 0; l < coords[j][k].length - 1; l += 1) {
-        callback(coords[j][k][l]);
+  const c = fixCoords(coords);
+  for (let j = 0; j < c.length; j += 1) {
+    for (let k = 0; k < c[j].length; k += 1) {
+      for (let l = 0; l < c[j][k].length - 1; l += 1) {
+        callback(c[j][k][l]);
       }
     }
   }
@@ -43,8 +44,8 @@ export function eachLatLngOfPolygon({ coords }: Polygon, callback: (ll: LngLat) 
 /**
  * Render Polygon to SVG
  */
-export function processPolygon(map: StaticMapCtx, mpp: Polygon): RenderedPolygon {
-  const shapeArrays = mpp.coords
+export function processPolygon(map: StaticMapCtx, p: Polygon): RenderedPolygon {
+  const shapeArrays = fixCoords(p.coords)
     .map(poly => poly.map(lr => lr.map(ll => [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))])))
     .flat();
 
@@ -56,7 +57,10 @@ export function processPolygon(map: StaticMapCtx, mpp: Polygon): RenderedPolygon
     return pathParts.join(' ');
   });
 
-  const out = Object.assign({ d: pathArrays.join(' ') }, mpp);
+  const out = Object.assign({ d: pathArrays.join(' ') }, p);
   delete (out as any).coords;
   return out;
 }
+
+const fixCoords = (coords: CoordsPolygon | CoordsPolygon[]) =>
+  !Array.isArray(coords[0][0][0]) ? [coords as CoordsPolygon] : (coords as CoordsPolygon[]);
