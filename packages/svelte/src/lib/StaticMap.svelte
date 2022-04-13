@@ -13,7 +13,7 @@
 		height,
 		viewBox,
 		tiles,
-		multiPolygons,
+		polygons,
 		lineStrings,
 		overlayImages,
 		markers,
@@ -25,7 +25,7 @@
 		height,
 		viewBox,
 		tiles,
-		multiPolygons,
+		polygons,
 		lineStrings,
 		overlayImages,
 		markers,
@@ -40,8 +40,8 @@
 	{#each overlayImages as overlayImage}
 		<image {...overlayImage} />
 	{/each}
-	{#each multiPolygons as multiPolygon}
-		<path {...dashedKeys(multiPolygon)} vector-effect="non-scaling-stroke" />
+	{#each polygons as polygon}
+		<path {...dashedKeys(polygon)} vector-effect="non-scaling-stroke" />
 	{/each}
 	{#each lineStrings as lineString}
 		<path {...dashedKeys(lineString)} fill="transparent" vector-effect="non-scaling-stroke" />

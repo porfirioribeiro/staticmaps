@@ -1,6 +1,6 @@
 import { calculateZoom, defaultSize, getCenter } from './utils';
 import { StaticMapOptions, StaticMapCtx, StaticMapsState } from './types';
-import { processMultiPolygon } from './MultiPolygon';
+import { processPolygon } from './Polygon';
 import { processOverlayImage } from './OverlayImage';
 import { processMarker } from './Marker';
 import { processTiles } from './Tile';
@@ -14,7 +14,7 @@ const defaultProps: Partial<StaticMapOptions> = {
 
 export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
   const props = Object.assign({}, defaultProps, cprops) as Required<StaticMapOptions>;
-  const { width, height, padding, tileProvider, multiPolygons, lineStrings, overlayImages, markers } = props;
+  const { width, height, padding, tileProvider, polygons, lineStrings, overlayImages, markers } = props;
 
   const [zoom, res, bbox] = calculateZoom(props);
 
@@ -42,7 +42,7 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
     viewBox,
     attribution: tileProvider.attribution ?? '',
     tiles,
-    multiPolygons: (multiPolygons || []).map(mp => processMultiPolygon(map, mp)),
+    polygons: (polygons || []).map(mp => processPolygon(map, mp)),
     lineStrings: (lineStrings || []).map(ls => processLineString(map, ls)),
     overlayImages: (overlayImages || []).map(oi => processOverlayImage(map, oi)),
     markers: (markers || []).map(m => processMarker(map, m)),

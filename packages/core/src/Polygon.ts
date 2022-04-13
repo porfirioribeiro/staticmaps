@@ -4,10 +4,9 @@ import { infinitBBox, bboxExtended } from './utils';
 
 type CoordsLinearRing = LngLat[];
 type CoordsPolygon = [exterior: CoordsLinearRing, ...holes: CoordsLinearRing[]];
-type CoordsMultiPolygon = CoordsPolygon[];
 
-export interface MultiPolygon {
-  coords: CoordsMultiPolygon;
+export interface Polygon {
+  coords: CoordsPolygon | CoordsPolygon[];
   fill?: string;
   fillOpacity?: number | string;
   fillRule?: 'nonzero' | 'evenodd' | 'inherit';
@@ -21,31 +20,34 @@ export interface MultiPolygon {
   strokeWidth?: number | string;
 }
 
-export interface RenderedMultiPolygon extends Omit<MultiPolygon, 'coords'> {
+export interface RenderedPolygon extends Omit<Polygon, 'coords'> {
   d: string;
 }
 
-export function extentMultiPolygon(p: MultiPolygon) {
+export function extentPolygon(p: Polygon) {
   let bbox = infinitBBox;
-  eachLatLngOfMultiPolygon(p, ll => (bbox = bboxExtended(bbox, ll)));
+  eachLatLngOfPolygon(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }
 
-export function eachLatLngOfMultiPolygon({ coords }: MultiPolygon, callback: (ll: LngLat) => void) {
-  for (let j = 0; j < coords.length; j += 1) {
-    for (let k = 0; k < coords[j].length; k += 1) {
-      for (let l = 0; l < coords[j][k].length - 1; l += 1) {
-        callback(coords[j][k][l]);
+export function eachLatLngOfPolygon({ coords }: Polygon, callback: (ll: LngLat) => void) {
+  const c = fixCoords(coords);
+  for (let j = 0; j < c.length; j += 1) {
+    for (let k = 0; k < c[j].length; k += 1) {
+      for (let l = 0; l < c[j][k].length - 1; l += 1) {
+        callback(c[j][k][l]);
       }
     }
   }
 }
 
 /**
- * Render MultiPolygon to SVG
+ * Render Polygon to SVG
  */
-export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): RenderedMultiPolygon {
-  const shapeArrays = mpp.coords.map(poly => poly.map(lr => lr.map(ll => llToPx(map, ll)))).flat();
+export function processPolygon(map: StaticMapCtx, p: Polygon): RenderedPolygon {
+  const shapeArrays = fixCoords(p.coords)
+    .map(poly => poly.map(lr => lr.map(ll => [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))])))
+    .flat();
 
   const pathArrays = shapeArrays.map(points => {
     const startPoint = points.shift()!;
@@ -55,10 +57,14 @@ export function processMultiPolygon(map: StaticMapCtx, mpp: MultiPolygon): Rende
     return pathParts.join(' ');
   });
 
-  const out = Object.assign({ d: pathArrays.join(' ') }, mpp);
+  const out = Object.assign({ d: pathArrays.join(' ') }, p);
   delete (out as any).coords;
   return out;
 }
+
 export function llToPx(map: StaticMapCtx, ll: LngLat): number[] {
   return [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))];
 }
+
+const fixCoords = (coords: CoordsPolygon | CoordsPolygon[]) =>
+  !Array.isArray(coords[0][0][0]) ? [coords as CoordsPolygon] : (coords as CoordsPolygon[]);

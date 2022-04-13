@@ -16,14 +16,14 @@ export function StaticMap(props: StaticMapProps) {
   delete props.style;
   const [ctx] = useReducer(reducer, props, createStaticMap);
 
-  const { width, height, viewBox, tiles, multiPolygons, overlayImages, markers, tileProvider } = ctx;
+  const { width, height, viewBox, tiles, polygons, overlayImages, markers, tileProvider } = ctx;
 
   return (
     <svg width={width} height={height} viewBox={viewBox} className={className} style={style}>
       <title>{tileProvider.attribution}</title>
       {tiles.map((t, key) => React.createElement('image', Object.assign({ key }, t)))}
       {overlayImages.map((oi, key) => React.createElement('image', Object.assign({ key }, oi)))}
-      {multiPolygons.map((mp, key) => React.createElement('path', Object.assign({ key }, mp, { vectorEffect: 'non-scaling-stroke' })))}
+      {polygons.map((mp, key) => React.createElement('path', Object.assign({ key }, mp, { vectorEffect: 'non-scaling-stroke' })))}
       {markers.map((m, key) => React.createElement('image', Object.assign({ key }, m)))}
     </svg>
   );
