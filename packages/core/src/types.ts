@@ -1,4 +1,5 @@
 import { Polygon, RenderedPolygon } from './Polygon';
+import { LineString, RenderedLineString } from './LineString';
 import { OverlayImage, RenderedOverlayImage } from './OverlayImage';
 import { Marker, RenderedMarker } from './Marker';
 
@@ -30,6 +31,7 @@ export interface StaticMapOptions {
   tileProvider?: TileProvider;
   bbox?: BBox;
   polygons?: Polygon[];
+  lineStrings?: LineString[];
   overlayImages?: OverlayImage[];
   markers?: Marker[];
 }
@@ -51,6 +53,7 @@ export interface StaticMapsState extends StaticMapCtx {
   attribution: string;
   tiles: RenderedImage[];
   polygons: RenderedPolygon[];
+  lineStrings: RenderedLineString[];
   overlayImages: RenderedOverlayImage[];
   markers: RenderedMarker[];
 }

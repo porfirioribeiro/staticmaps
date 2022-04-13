@@ -1,6 +1,19 @@
 import { StaticMapCtx } from './types';
 
 /**
+ * project a longitude coordinate as x pixels inside the map
+ */
+export function lonToMapX(map: StaticMapCtx, lon: number) {
+  return xToPx(map, lonToX(lon, map.zoom));
+}
+/**
+ * project a latitude coordinate as y pixels inside the map
+ */
+export function lonToMapY(map: StaticMapCtx, lat: number) {
+  return yToPx(map, latToY(lat, map.zoom));
+}
+
+/**
  * transform tile number to pixel on image canvas
  */
 export function xToPx(map: Pick<StaticMapCtx, 'center' | 'tileSize' | 'width'>, x: number) {
