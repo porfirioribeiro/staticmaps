@@ -62,13 +62,5 @@ export function processPolygon(map: StaticMapCtx, p: Polygon): RenderedPolygon {
   return out;
 }
 
-export function llToPx(map: StaticMapCtx, ll: LngLat): number[] {
-  return [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))];
-}
-
 const fixCoords = (coords: CoordsPolygon | CoordsPolygon[]) =>
   !Array.isArray(coords[0][0][0]) ? [coords as CoordsPolygon] : (coords as CoordsPolygon[]);
-
-export function llToPx(map: StaticMapCtx, ll: LngLat): number[] {
-  return [xToPx(map, lonToX(ll[0], map.zoom)), yToPx(map, latToY(ll[1], map.zoom))];
-}

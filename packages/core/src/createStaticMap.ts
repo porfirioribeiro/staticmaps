@@ -6,7 +6,6 @@ import { processOverlayImage } from './OverlayImage';
 import { processMarker } from './Marker';
 import { processTiles } from './Tile';
 import { osmTileProvider } from './tileProvider';
-import { processLineString } from './LineString';
 
 const defaultProps: Partial<StaticMapOptions> = {
   padding: [0, 0],
