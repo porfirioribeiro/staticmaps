@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 
 import { bboxExtended, bboxJoin, getMapBBox, calculateZoom, getCenter } from '../src/utils';
 import { LngLat, BBox } from '../src/types';
-import { MultiPolygon } from '../src/MultiPolygon';
+import { Polygon } from '../src/Polygon';
 import { osmTileProvider } from '../src/tileProvider';
 
 const bBox: BBox = [-8.9, 38.5, -8.9, 38.5];
 const bBox2: BBox = [-10.8, 48.5, -10.8, 48.5];
 
-const polygonCoords: MultiPolygon = {
+const polygonCoords: Polygon = {
   coords: [
     [
       [
@@ -35,7 +35,7 @@ describe('Utils tests', () => {
     const width = 200;
     const height = 50;
 
-    expect(getMapBBox({ multiPolygons: [polygonCoords], tileProvider: osmTileProvider, width, height }, zoom)).toStrictEqual([
+    expect(getMapBBox({ polygons: [polygonCoords], tileProvider: osmTileProvider, width, height }, zoom)).toStrictEqual([
       -8.94,
       38.55,
       -8.92,

@@ -1,6 +1,6 @@
-import type { MultiPolygon } from '@staticmaps/core';
+import type { Polygon } from '@staticmaps/core';
 
-export const holedMP: MultiPolygon = {
+export const holedMP: Polygon = {
 	fill: '#00C4B359',
 	stroke: '#00C4B3CC',
 	strokeWidth: 2,

@@ -1,5 +1,5 @@
 /* eslint-disable no-continue, no-param-reassign */
-import { eachLatLngOfMultiPolygon } from './MultiPolygon';
+import { eachLatLngOfPolygon } from './Polygon';
 import { lonToX, latToY, xToLon, yToLat } from './geo';
 import { extentOfMarker } from './Marker';
 import { BBox, LngLat, StaticMapCtx, StaticMapOptions } from './types';
@@ -19,9 +19,9 @@ export function bboxJoin(bbox1: BBox, bbox2: BBox): BBox {
   return [Math.min(bbox1[0], bbox2[0]), Math.min(bbox1[1], bbox2[1]), Math.max(bbox1[2], bbox2[2]), Math.max(bbox1[3], bbox2[3])];
 }
 
-export function getMapBBox({ bbox = infinitBBox, multiPolygons, overlayImages, markers, tileProvider }: StaticMapOptions, zoom?: number) {
-  if (multiPolygons) {
-    multiPolygons.forEach(mp => eachLatLngOfMultiPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
+export function getMapBBox({ bbox = infinitBBox, polygons, overlayImages, markers, tileProvider }: StaticMapOptions, zoom?: number) {
+  if (polygons) {
+    polygons.forEach(mp => eachLatLngOfPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
   }
   if (overlayImages) {
     overlayImages.forEach(oi => (bbox = bboxJoin(bbox, oi.bbox)));

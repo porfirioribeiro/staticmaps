@@ -11,9 +11,7 @@
 </script>
 
 <h1>Server Side Only</h1>
-<p>
-	This page is server side rendered only, there is no javascript used here
-</p>
+<p>This page is server side rendered only, there is no javascript used here</p>
 
 <StaticMap
 	options={{
@@ -22,7 +20,7 @@
 		padding: [10, 10],
 		tileProvider: esriWorldImageryTileProvider,
 		bbox: paraguayOverlay.bbox,
-		multiPolygons: [paraguayMP],
+		polygons: [paraguayMP],
 		overlayImages: [paraguayOverlay],
 		markers: paraguayMarkers
 	}}

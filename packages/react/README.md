@@ -2,7 +2,7 @@
 
 This small package allows you to render static maps easly with react.
 
-It uses svg to render the tiles and the vectors for the MultiPolygon. You can specify a bounding box or if you pass any shape, it will automatically find the bounds for the shapes you want to add.
+It uses svg to render the tiles and the vectors for the Polygon. You can specify a bounding box or if you pass any shape, it will automatically find the bounds for the shapes you want to add.
 
 ![demo](demo.png)
 
@@ -19,7 +19,7 @@ It uses svg to render the tiles and the vectors for the MultiPolygon. You can sp
   height={250}
   padding={[5, 5]}
   tileProvider={esriWorldImageryTileProvider}
-  multiPolygons={[rosaMP]}
+  polygons={[rosaMP]}
   markers={[rosaMarker1]}
 />
 ```
@@ -28,7 +28,7 @@ It uses svg to render the tiles and the vectors for the MultiPolygon. You can sp
 
 - Base TileLayer using x,y,z
 - Marker
-- MultiPolygon
+- Polygon
 - OverlayImage
 
 ## Demo

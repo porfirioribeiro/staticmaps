@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { esriWorldImageryTileProvider, MultiPolygon, osmTileProvider } from '@staticmaps/core';
+import { esriWorldImageryTileProvider, Polygon, osmTileProvider } from '@staticmaps/core';
 
 import StaticMap from '../src/StaticMap.vue';
 
 const count = ref(0);
 
-const holedMP: MultiPolygon = {
+const holedMP: Polygon = {
   fill: '#00C4B359',
   stroke: '#00C4B3CC',
   strokeWidth: 2,
@@ -41,7 +41,7 @@ const holedMP: MultiPolygon = {
 </script>
 
 <template>
-  <StaticMap :options="{ width: 800, height: 500, multiPolygons: [holedMP] }"></StaticMap>
+  <StaticMap :options="{ width: 800, height: 500, polygons: [holedMP] }"></StaticMap>
   <button @click="count++">{{ count }}</button>
 </template>
 
