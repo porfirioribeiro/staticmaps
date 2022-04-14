@@ -1,6 +1,6 @@
 import { LngLat, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY, lonToMapX, lonToMapY } from './geo';
-import { infinitBBox, bboxExtended } from './utils';
+import { infinityBBox, bboxExtended } from './utils';
 
 type CoordsLineString = LngLat[];
 
@@ -21,7 +21,7 @@ export interface RenderedLineString extends Omit<LineString, 'coords'> {
 }
 
 export function extentLineString(p: LineString) {
-  let bbox = infinitBBox;
+  let bbox = infinityBBox;
   eachLatLngOfLineString(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }

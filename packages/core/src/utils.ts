@@ -6,7 +6,7 @@ import { eachLatLngOfLineString } from './LineString';
 
 export const noop = <T>(x: T) => x;
 
-export const infinitBBox: BBox = [Infinity, Infinity, -Infinity, -Infinity];
+export const infinityBBox: BBox = [Infinity, Infinity, -Infinity, -Infinity];
 
 export const defaultZoomRange = { min: 1, max: 21 };
 export const defaultSize = 256;
@@ -19,7 +19,7 @@ export function bboxJoin(bbox1: BBox, bbox2: BBox): BBox {
   return [Math.min(bbox1[0], bbox2[0]), Math.min(bbox1[1], bbox2[1]), Math.max(bbox1[2], bbox2[2]), Math.max(bbox1[3], bbox2[3])];
 }
 
-export function getMapBBox({ bbox = infinitBBox, polygons, lineStrings, overlayImages, markers, tileProvider }: StaticMapOptions) {
+export function getMapBBox({ bbox = infinityBBox, polygons, lineStrings, overlayImages, markers, tileProvider }: StaticMapOptions) {
   if (polygons) {
     polygons.forEach(mp => eachLatLngOfPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
   }
@@ -32,7 +32,7 @@ export function getMapBBox({ bbox = infinitBBox, polygons, lineStrings, overlayI
   if (markers) {
     markers.forEach(m => (bbox = bboxExtended(bbox, m.coord)));
   }
-  if (bbox === infinitBBox) {
+  if (bbox === infinityBBox) {
     throw new Error('Could not get the bbox of the map, add some shape or a bbox');
   }
 
