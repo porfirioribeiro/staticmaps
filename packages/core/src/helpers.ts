@@ -1,6 +1,6 @@
-import { BBox, LngLat } from './types';
+import { BBox, Position } from './types';
 
-export function polyFromBBox(bbox: BBox): LngLat[][][] {
+export function polyFromBBox(bbox: BBox): Position[][][] {
   return [
     [
       [

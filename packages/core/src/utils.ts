@@ -1,8 +1,8 @@
 /* eslint-disable no-continue, no-param-reassign */
 import { lonToX, latToY, xToLon, yToLat } from './geo';
-import { BBox, LngLat, StaticMapCtx, StaticMapOptions } from './types';
-import { eachLatLngOfPolygon } from './Polygon';
-import { eachLatLngOfLineString } from './LineString';
+import { BBox, Position, StaticMapCtx, StaticMapOptions } from './types';
+import { eachPositionOfPolygon } from './Polygon';
+import { eachPositionOfLineString } from './LineString';
 import { extentOfMarker } from './Marker';
 
 export const noop = <T>(x: T) => x;
@@ -12,7 +12,7 @@ export const infinitBBox: BBox = [Infinity, Infinity, -Infinity, -Infinity];
 export const defaultZoomRange = { min: 1, max: 21 };
 export const defaultSize = 256;
 
-export function bboxExtended(bbox: BBox, [lng, lat]: LngLat): BBox {
+export function bboxExtended(bbox: BBox, [lng, lat]: Position): BBox {
   return [Math.min(bbox[0], lng), Math.min(bbox[1], lat), Math.max(bbox[2], lng), Math.max(bbox[3], lat)];
 }
 
@@ -25,10 +25,10 @@ export function getMapBBox(
   zoom?: number,
 ) {
   if (polygons) {
-    polygons.forEach(mp => eachLatLngOfPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
+    polygons.forEach(mp => eachPositionOfPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
   }
   if (lineStrings) {
-    lineStrings.forEach(ls => eachLatLngOfLineString(ls, ll => (bbox = bboxExtended(bbox, ll))));
+    lineStrings.forEach(ls => eachPositionOfLineString(ls, ll => (bbox = bboxExtended(bbox, ll))));
   }
   if (overlayImages) {
     overlayImages.forEach(oi => (bbox = bboxJoin(bbox, oi.bbox)));

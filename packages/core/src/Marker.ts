@@ -1,9 +1,9 @@
-import { LngLat, RenderedImage, StaticMapCtx } from './types';
+import { Position, RenderedImage, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
 
 export interface Marker {
   // Coordinates of the marker ([Lng, Lat])
-  coord: LngLat;
+  coord: Position;
   // Marker image path or URL
   url: string;
   // Width of the marker image

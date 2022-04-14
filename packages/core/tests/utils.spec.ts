@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { bboxExtended, bboxJoin, getMapBBox, calculateZoom, getCenter } from '../src/utils';
-import { LngLat, BBox } from '../src/types';
+import { Position, BBox } from '../src/types';
 import { Polygon } from '../src/Polygon';
 import { osmTileProvider } from '../src/tileProvider';
 
@@ -23,7 +23,7 @@ const polygonCoords: Polygon = {
 
 describe('Utils tests', () => {
   it('should extend bbox', () => {
-    const lngLat: LngLat = [-4.123456, 5.654321];
+    const lngLat: Position = [-4.123456, 5.654321];
 
     expect(bboxExtended(bBox, lngLat)).toStrictEqual([-8.9, 5.654321, -4.123456, 38.5]);
   });
@@ -36,10 +36,7 @@ describe('Utils tests', () => {
     const height = 50;
 
     expect(getMapBBox({ polygons: [polygonCoords], tileProvider: osmTileProvider, width, height }, zoom)).toStrictEqual([
-      -8.94,
-      38.55,
-      -8.92,
-      38.58,
+      -8.94, 38.55, -8.92, 38.58,
     ]);
   });
 
