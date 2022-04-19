@@ -1,6 +1,6 @@
 import { Position, StaticMapCtx } from './types';
 import { lonToMapX, lonToMapY } from './geo';
-import { infinitBBox, bboxExtended } from './utils';
+import { infinityBBox, bboxExtended } from './utils';
 
 type CoordsLineString = Position[];
 
@@ -21,7 +21,7 @@ export interface RenderedLineString extends Omit<LineString, 'coords'> {
 }
 
 export function extentLineString(p: LineString) {
-  let bbox = infinitBBox;
+  let bbox = infinityBBox;
   eachPositionOfLineString(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }

@@ -24,9 +24,9 @@
 <h4>Marquers and overlay</h4>
 <StaticMap
 	options={{
-		width: 345,
-		height: 138,
-		padding: [10, 10],
+		width: 365,
+		height: 250,
+		padding: [20, 20],
 		tileProvider: esriWorldImageryTileProvider,
 		bbox: paraguayOverlay.bbox,
 		polygons: [paraguayMP],
@@ -50,7 +50,6 @@
 	options={{
 		width: 300,
 		height: 300,
-		padding: [20, 20],
 		tileProvider: osmTileProvider,
 		polygons: [holedMP]
 	}}
