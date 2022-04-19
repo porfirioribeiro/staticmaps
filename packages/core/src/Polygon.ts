@@ -1,6 +1,6 @@
 import { LngLat, StaticMapCtx } from './types';
 import { xToPx, yToPx, lonToX, latToY } from './geo';
-import { infinitBBox, bboxExtended } from './utils';
+import { infinityBBox, bboxExtended } from './utils';
 
 type CoordsLinearRing = LngLat[];
 type CoordsPolygon = [exterior: CoordsLinearRing, ...holes: CoordsLinearRing[]];
@@ -25,7 +25,7 @@ export interface RenderedPolygon extends Omit<Polygon, 'coords'> {
 }
 
 export function extentPolygon(p: Polygon) {
-  let bbox = infinitBBox;
+  let bbox = infinityBBox;
   eachLatLngOfPolygon(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }
