@@ -3,9 +3,11 @@ import { LineString, RenderedLineString } from './LineString';
 import { OverlayImage, RenderedOverlayImage } from './OverlayImage';
 import { Marker, RenderedMarker } from './Marker';
 
-export type LngLat = [number, number];
-/*                  lng   , lat   , lng   , lat */
-export type BBox = [number, number, number, number];
+// https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1
+export type Position = [longitude: number, latitude: number, altitude?: number];
+
+// https://datatracker.ietf.org/doc/html/rfc7946#section-5
+export type BBox = [longitude: number, latitude: number, longitude: number, latitude: number];
 
 export interface TileProvider {
   url: string;

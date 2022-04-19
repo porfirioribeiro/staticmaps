@@ -1,8 +1,8 @@
-import { LngLat, StaticMapCtx } from './types';
-import { xToPx, yToPx, lonToX, latToY, lonToMapX, lonToMapY } from './geo';
+import { Position, StaticMapCtx } from './types';
+import { lonToMapX, lonToMapY } from './geo';
 import { infinityBBox, bboxExtended } from './utils';
 
-type CoordsLineString = LngLat[];
+type CoordsLineString = Position[];
 
 export interface LineString {
   coords: CoordsLineString | CoordsLineString[];
@@ -22,11 +22,11 @@ export interface RenderedLineString extends Omit<LineString, 'coords'> {
 
 export function extentLineString(p: LineString) {
   let bbox = infinityBBox;
-  eachLatLngOfLineString(p, ll => (bbox = bboxExtended(bbox, ll)));
+  eachPositionOfLineString(p, ll => (bbox = bboxExtended(bbox, ll)));
   return bbox;
 }
 
-export function eachLatLngOfLineString({ coords }: LineString, callback: (ll: LngLat) => void) {
+export function eachPositionOfLineString({ coords }: LineString, callback: (ll: Position) => void) {
   const c = fixCoords(coords);
   for (let j = 0; j < c.length; j += 1) {
     for (let k = 0; k < c[j].length; k += 1) {
@@ -35,7 +35,7 @@ export function eachLatLngOfLineString({ coords }: LineString, callback: (ll: Ln
   }
 }
 
-const pointsToPathPart = (map: StaticMapCtx, [startPoint, ...points]: LngLat[]): string =>
+const pointsToPathPart = (map: StaticMapCtx, [startPoint, ...points]: Position[]): string =>
   [
     `M ${lonToMapX(map, startPoint[0])} ${lonToMapY(map, startPoint[1])}`,
     ...points.map(ll => `L ${lonToMapX(map, ll[0])} ${lonToMapY(map, ll[1])}`),
