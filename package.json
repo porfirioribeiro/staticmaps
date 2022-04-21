@@ -5,9 +5,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpm test -r",
-    "build": "pnpm build -r",
-    "format": "pnpm format -r",
+    "test": "pnpm run -r test",
+    "build": "pnpm run -r build",
+    "format": "pnpm run -r format",
     "build:ci": "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm build && npx pnpm run build:demo -C packages/svelte"
   }
 }
