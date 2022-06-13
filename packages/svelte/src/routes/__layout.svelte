@@ -19,6 +19,9 @@
 			<li>
 				<a href="/linestring">LineString</a>
 			</li>
+			<li>
+				<a href="/geojson">GeoJSON</a>
+			</li>
 		</ul>
 	</nav>
 </aside>

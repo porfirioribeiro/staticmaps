@@ -1,4 +1,5 @@
-import { StaticMapCtx } from './types';
+import { MapBaseSize, StaticMapCtx } from './types';
+import { defaultSize } from './utils';
 
 /**
  * project a longitude coordinate as x pixels inside the map
@@ -16,15 +17,15 @@ export function lonToMapY(map: StaticMapCtx, lat: number) {
 /**
  * transform tile number to pixel on image canvas
  */
-export function xToPx(map: Pick<StaticMapCtx, 'center' | 'tileSize' | 'width'>, x: number) {
-  return Math.round((x - map.center[0]) * map.tileSize + map.width / 2);
+export function xToPx(map: MapBaseSize, x: number) {
+  return Math.round((x - map.center[0]) * defaultSize + map.width / 2);
 }
 
 /**
  * transform tile number to pixel on image canvas
  */
-export function yToPx(map: Pick<StaticMapCtx, 'center' | 'tileSize' | 'height'>, y: number) {
-  return Math.round((y - map.center[1]) * map.tileSize + map.height / 2);
+export function yToPx(map: MapBaseSize, y: number) {
+  return Math.round((y - map.center[1]) * defaultSize + map.height / 2);
 }
 
 /**

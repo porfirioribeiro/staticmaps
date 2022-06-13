@@ -1,7 +1,7 @@
 /* eslint-disable no-continue, no-param-reassign */
 
 import { lonToX, latToY } from './geo';
-import { BBox, Position, StaticMapCtx, StaticMapOptions } from './types';
+import { BBox, Padding, Point, Position, StaticMapCtx, StaticMapOptions, TileProvider, ZoomRange } from './types';
 import { eachPositionOfPolygon } from './Polygon';
 import { eachPositionOfLineString } from './LineString';
 
@@ -9,8 +9,9 @@ export const noop = <T>(x: T) => x;
 
 export const infinityBBox: BBox = [Infinity, Infinity, -Infinity, -Infinity];
 
-export const defaultZoomRange = { min: 1, max: 21 };
+export const defaultZoomRange: ZoomRange = [1, 21];
 export const defaultSize = 256;
+export const defaultPadding: Padding = [0, 0];
 
 export function bboxExtended(bbox: BBox, [lng, lat]: Position): BBox {
   return [Math.min(bbox[0], lng), Math.min(bbox[1], lat), Math.max(bbox[2], lng), Math.max(bbox[3], lat)];
@@ -44,26 +45,73 @@ export function getMapBBox({ bbox = infinityBBox, polygons, lineStrings, overlay
  * calculate the best zoom level for given extent
  */
 export function calculateZoom(op: Pick<StaticMapCtx, 'bbox' | 'width' | 'height' | 'padding' | 'tileProvider'>): [number, number, BBox] {
-  const { zoomRange = defaultZoomRange, size = defaultSize } = op.tileProvider;
+  const { zoomRange: [zmin, zmax] = defaultZoomRange } = op.tileProvider;
+  const size = defaultSize;
   const widthPad = op.width - op.padding[0] * 2;
   const heightPad = op.height - op.padding[1] * 2;
   let bbox = getMapBBox(op);
-  for (let z = zoomRange.max; z >= zoomRange.min; z -= 1) {
-    const width = (lonToX(bbox[2], z) - lonToX(bbox[0], z)) * size;
+  for (let z = zmax; z >= zmin; z -= 1) {
+    const w = (lonToX(bbox[2], z) - lonToX(bbox[0], z)) * size;
 
-    if (width > widthPad) continue;
+    if (w > widthPad) continue;
 
-    const height = (latToY(bbox[1], z) - latToY(bbox[3], z)) * size;
+    const h = (latToY(bbox[1], z) - latToY(bbox[3], z)) * size;
 
-    if (height > heightPad) continue;
+    if (h > heightPad) continue;
 
-    // const res = Math.abs(Math.min(widthPad / width, heightPad / height));
+    const res = Math.abs(Math.min(widthPad / w, heightPad / h));
 
     return [z, 1 /* res */, bbox];
   }
-  return [zoomRange.min, 1, bbox];
+  return [zmin, 1, bbox];
 }
 
-export function getCenter(bbox: BBox, zoom: number): [number, number] {
+/**
+ *
+ * @param bbox
+ * @param width
+ * @param height
+ * @param padding
+ * @param zoomRange
+ * @param tileSize
+ * @returns
+ */
+export function getZoomScale(
+  bbox: BBox,
+  width: number,
+  height: number,
+  [paddingX, paddingY] = defaultPadding,
+  [zmin, zmax] = defaultZoomRange,
+  tileSize = defaultSize,
+): [zoom: number, scale: number] {
+  const widthPad = width - paddingX * 2;
+  const heightPad = height - paddingY * 2;
+  for (let z = zmax; z >= zmin; z -= 1) {
+    const w = (lonToX(bbox[2], z) - lonToX(bbox[0], z)) * tileSize;
+
+    if (w > widthPad) continue;
+
+    const h = (latToY(bbox[1], z) - latToY(bbox[3], z)) * tileSize;
+
+    if (h > heightPad) continue;
+
+    const res = Math.abs(Math.min(widthPad / w, heightPad / h));
+
+    return [z, res];
+  }
+  return [zmin, 1];
+}
+
+export function getCenter(bbox: BBox, zoom: number): Point {
   return [lonToX((bbox[0] + bbox[2]) / 2, zoom), latToY((bbox[1] + bbox[3]) / 2, zoom)];
+}
+
+export function reduceZoomRange(tileProviders: TileProvider[]) {
+  return tileProviders.reduce<ZoomRange>(
+    (zoomRange, provider) =>
+      provider.zoomRange //
+        ? [Math.max(zoomRange[0], provider.zoomRange[0]), Math.min(zoomRange[1], provider.zoomRange[1])]
+        : zoomRange,
+    defaultZoomRange,
+  );
 }

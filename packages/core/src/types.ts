@@ -9,12 +9,15 @@ export type Position = [longitude: number, latitude: number, altitude?: number];
 // https://datatracker.ietf.org/doc/html/rfc7946#section-5
 export type BBox = [longitude: number, latitude: number, longitude: number, latitude: number];
 
+export type ZoomRange = [min: number, max: number];
+export type Padding = [x: number, y: number];
+export type Point = [x: number, y: number];
+
 export interface TileProvider {
   url: string;
-  size?: number;
   subdomains?: string[];
   reverseY?: boolean;
-  zoomRange?: { min: number; max: number };
+  zoomRange?: ZoomRange;
   attribution?: string;
 }
 
@@ -38,16 +41,18 @@ export interface StaticMapOptions {
   markers?: Marker[];
 }
 
-export interface StaticMapCtx {
+export interface MapBaseSize {
   width: number;
   height: number;
-  padding: [number, number];
-  tileProvider: TileProvider;
-  tileSize: number;
-  bbox: BBox;
+  center: Point;
   zoom: number;
+}
+
+export interface StaticMapCtx extends MapBaseSize {
+  padding: Padding;
+  tileProvider: TileProvider;
+  bbox: BBox;
   res: number;
-  center: [number, number];
 }
 
 export interface StaticMapsState extends StaticMapCtx {

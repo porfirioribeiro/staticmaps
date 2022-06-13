@@ -29,14 +29,13 @@ export function createStaticMap(cprops: StaticMapOptions): StaticMapsState {
     height,
     padding,
     tileProvider,
-    tileSize: tileProvider.size ?? defaultSize,
     bbox,
     zoom,
     res,
     center,
   };
 
-  const tiles = processTiles(map);
+  const tiles = processTiles(map, map.tileProvider);
 
   return Object.assign({}, map, {
     viewBox,

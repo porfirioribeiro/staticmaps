@@ -1,10 +1,11 @@
 /* eslint-disable no-bitwise */
-import { StaticMapCtx, RenderedImage } from './types';
+import { StaticMapCtx, MapBaseSize, RenderedImage, TileProvider } from './types';
 import { xToPx, yToPx } from './geo';
 import { defaultSize } from './utils';
 
-export function processTiles(map: StaticMapCtx): RenderedImage[] {
-  const { size = defaultSize, url, subdomains } = map.tileProvider;
+export function processTiles(map: MapBaseSize, tileProvider: TileProvider): RenderedImage[] {
+  const { url, subdomains, reverseY } = tileProvider;
+  const size = defaultSize;
   const xMin = Math.floor(map.center[0] - (0.5 * map.width) / size);
   const yMin = Math.floor(map.center[1] - (0.5 * map.height) / size);
   const xMax = Math.ceil(map.center[0] + (0.5 * map.width) / size);
@@ -18,7 +19,7 @@ export function processTiles(map: StaticMapCtx): RenderedImage[] {
       const maxTile = 2 ** map.zoom;
       const tileX = (x + maxTile) % maxTile;
       let tileY = (y + maxTile) % maxTile;
-      if (map.tileProvider.reverseY) tileY = (1 << map.zoom) - tileY - 1;
+      if (reverseY) tileY = (1 << map.zoom) - tileY - 1;
 
       let tileUrl = url.replace('{z}', `${map.zoom}`).replace('{x}', `${tileX}`).replace('{y}', `${tileY}`);
 
