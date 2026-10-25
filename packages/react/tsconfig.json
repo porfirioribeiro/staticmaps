@@ -1,8 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "moduleResolution": "Node"
+    "jsx": "preserve"
   },
   "include": ["src"]
 }

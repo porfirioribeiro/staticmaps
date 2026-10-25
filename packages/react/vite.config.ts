@@ -1,22 +1,18 @@
-/// <reference types="vitest" />
-
-import { defineConfig } from 'vite';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import path from 'path';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react({ jsxRuntime: 'classic' }), dts({ insertTypesEntry: true })],
+  plugins: [react(), dts({ insertTypesEntry: true })],
   build: {
-    minify: 'terser',
-    terserOptions: {
-      mangle: {
-        properties: { regex: '^_' },
-      },
-    },
+    minify: true,
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: path.resolve(dirname, 'src/index.ts'),
       name: 'StaticMapsReact',
       fileName: format => `index.${format}.js`,
       formats: ['cjs', 'es', 'umd', 'iife'],
@@ -35,7 +31,7 @@ export default defineConfig({
     },
   },
   test: {
-    globals: true,
     environment: 'jsdom',
+    coverage: { provider: 'v8', reporter: ['text', 'lcov'] },
   },
 });
