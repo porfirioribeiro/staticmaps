@@ -1,5 +1,5 @@
 <script lang="ts">
-	import StaticMap from '$lib/StaticMap.svelte';
+	import StaticMap from '#lib/StaticMap.svelte';
 	import { esriWorldImageryTileProvider } from '@staticmaps/core';
 </script>
 
@@ -60,7 +60,7 @@
 <p class="my-24">
 	<a
 		target="__blank"
-		href="https://github.com/porfirioribeiro/staticmaps/blob/main/packages/svelte/src/routes/linestring.svelte"
+		href="https://github.com/porfirioribeiro/staticmaps/blob/main/packages/svelte/src/routes/linestring/+page.svelte"
 		>See source on GitHub</a
 	>
 </p>

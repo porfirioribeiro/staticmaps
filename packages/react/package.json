@@ -1,13 +1,16 @@
 {
   "name": "@staticmaps/react",
   "version": "1.0.0",
-  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "author": "Porf\u00edrio Ribeiro <porfirioribeiro@gmail.com>",
   "license": "MIT",
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.cjs.js",
-    "import": "./dist/index.es.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.es.js"
+    }
   },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",

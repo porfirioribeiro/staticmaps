@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { StaticMap, osmTileProvider, otmTileProvider, esriWorldImageryTileProvider } from '$lib';
+	import { StaticMap, osmTileProvider, otmTileProvider, esriWorldImageryTileProvider } from '#lib';
 	import { paraguayMarkers, paraguayMP, paraguayOverlay } from './_res/paraguay';
 	import { rosaMarker1, rosaMP } from './_res/rosa';
 	import { holedMP } from './_res/holed';
 
-	let count = 0;
-	let width = 180;
+	let count = $state(0);
+	let width = $state(180);
 </script>
 
 <h1>Welcome to SvelteKit</h1>
 <p>
 	Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-	<button on:click={() => count++}>count: {count}</button>
-	<button on:click={() => (width = width == 800 ? 180 : 800)}>width: {width}</button>
+	<button onclick={() => count++}>count: {count}</button>
+	<button onclick={() => (width = width == 800 ? 180 : 800)}>width: {width}</button>
 </p>
 
 <div>

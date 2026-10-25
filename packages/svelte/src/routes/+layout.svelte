@@ -1,3 +1,9 @@
+<script lang="ts">
+	import '../style.scss';
+
+	let { children } = $props();
+</script>
+
 <header>
 	<h1>StaticMaps</h1>
 </header>
@@ -24,13 +30,10 @@
 </aside>
 
 <main>
-	<slot />
+	{@render children()}
 </main>
 
 <style lang="scss">
-	:global {
-		@import '../style.scss';
-	}
 	header {
 		grid-area: h;
 		background: white;
