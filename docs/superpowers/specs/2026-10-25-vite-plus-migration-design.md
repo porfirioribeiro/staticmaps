@@ -58,21 +58,21 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 
 ## Target versions
 
-| Area                 | Current                             | Target                                                                                                              |
-| -------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Toolchain            | vite 2.9, vitest 0.9, c8 7          | `vite-plus@1.4.0` (Vite 8.3 core, Vitest 5.0.5, Oxlint, Oxfmt)                                                      |
-| TypeScript           | 4.6                                 | 6.0.3                                                                                                               |
-| Node                 | unset                               | 24.22.1 (`engines`, `.node-version`, `.nvmrc`)                                                                      |
-| Svelte               | 3.47                                | 5.57.2                                                                                                              |
-| SvelteKit            | 1.0.0-next.318                      | 3.1.0                                                                                                               |
+| Area                 | Current                             | Target                                                                                                                    |
+| -------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Toolchain            | vite 2.9, vitest 0.9, c8 7          | `vite-plus@1.4.0` (Vite 8.3 core, Vitest 5.0.5, Oxlint, Oxfmt)                                                            |
+| TypeScript           | 4.6                                 | 6.0.3                                                                                                                     |
+| Node                 | unset                               | 24.22.1 (`engines`, `.node-version`, `.nvmrc`)                                                                            |
+| Svelte               | 3.47                                | 5.57.2                                                                                                                    |
+| SvelteKit            | 1.0.0-next.318                      | 3.1.0                                                                                                                     |
 | Svelte tooling       | svelte-check 2, svelte-preprocess 4 | svelte-check 4.7.7, `@sveltejs/vite-plugin-svelte` 7.3.1, `@sveltejs/adapter-cloudflare` 8.0.1, `@sveltejs/package` 3.0.1 |
-| Svelte package build | `svelte-kit package`                | `svelte-package` (reads plugin config from `vite.config.ts`)                                                        |
-| React                | 18.0                                | 19.3.1 (+ `@types/react` 19.3.0, plugin-react 6.1.2)                                                                |
-| React tests          | RTL 13, jest-dom 5, jsdom 19        | RTL 16.3.3, jest-dom 7.0.1, `@testing-library/dom` 10.4.2, jsdom 30.1.3                                             |
-| Vue                  | 3.2.33                              | 3.5.44 (+ plugin-vue 6.0.10, test-utils 2.5.1, happy-dom 21.0.4)                                                    |
-| Playwright           | 1.21                                | 1.64.1                                                                                                              |
-| dts                  | vite-plugin-dts 1.1                 | tsdown `dts: true` (no plugin)                                                                                      |
-| pnpm                 | unpinned                            | `packageManager: pnpm@12.15.0`                                                                                      |
+| Svelte package build | `svelte-kit package`                | `svelte-package` (reads plugin config from `vite.config.ts`)                                                              |
+| React                | 18.0                                | 19.3.1 (+ `@types/react` 19.3.0, plugin-react 6.1.2)                                                                      |
+| React tests          | RTL 13, jest-dom 5, jsdom 19        | RTL 16.3.3, jest-dom 7.0.1, `@testing-library/dom` 10.4.2, jsdom 30.1.3                                                   |
+| Vue                  | 3.2.33                              | 3.5.44 (+ plugin-vue 6.0.10, test-utils 2.5.1, happy-dom 21.0.4)                                                          |
+| Playwright           | 1.21                                | 1.64.1                                                                                                                    |
+| dts                  | vite-plugin-dts 1.1                 | tsdown `dts: true` (no plugin)                                                                                            |
+| pnpm                 | unpinned                            | `packageManager: pnpm@12.15.0`                                                                                            |
 
 ## Build design
 
