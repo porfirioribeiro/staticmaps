@@ -1,33 +1,16 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { defineConfig, lazyPlugins } from 'vite-plus';
 import vue from '@vitejs/plugin-vue';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite-plus';
 
-const dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: lazyPlugins(() => [vue(), dts({ insertTypesEntry: true })]),
-  build: {
+  plugins: [vue()],
+  pack: {
+    entry: 'src/index.ts',
+    format: ['es'],
+    platform: 'browser',
+    dts: false,
     minify: true,
-    lib: {
-      entry: path.resolve(dirname, 'src/index.ts'),
-      name: 'StaticMapsVue',
-      fileName: format => `index.${format}.js`,
-      formats: ['cjs', 'es', 'umd', 'iife'],
-    },
-    rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      external: ['vue', '@staticmaps/core'],
-      output: {
-        globals: {
-          vue: 'Vue',
-          '@staticmaps/core': 'StaticMapsCore',
-        },
-      },
-    },
+    clean: true,
+    plugins: [vue()],
   },
   test: {
     environment: 'happy-dom',

@@ -1,23 +1,21 @@
 {
   "name": "@staticmaps/vue",
   "version": "1.0.0",
-  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "author": "Porf\u00edrio Ribeiro <porfirioribeiro@gmail.com>",
   "license": "MIT",
   "type": "module",
   "source": "src/index.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs.js",
-      "import": "./dist/index.es.js"
+      "import": "./dist/index.js"
     }
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
-  "unpkg": "./dist/index.iife.js",
-  "esmodule": "dist/index.es.js",
-  "umd:main": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@staticmaps/core": "workspace:*"
   },
@@ -26,7 +24,7 @@
   },
   "scripts": {
     "start": "vp dev",
-    "build": "vp build",
+    "build": "vp pack && vue-tsc -p tsconfig.build.json",
     "test": "vp test run --coverage",
     "preview": "vp preview"
   },
@@ -37,9 +35,9 @@
     "happy-dom": "21.0.4",
     "typescript": "6.0.3",
     "vite": "catalog:",
-    "vite-plugin-dts": "5.1.2",
     "vitest": "catalog:",
     "vue": "3.5.44",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "vue-tsc": "3.3.13"
   }
 }

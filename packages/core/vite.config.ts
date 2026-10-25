@@ -1,21 +1,13 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { defineConfig, lazyPlugins } from 'vite-plus';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite-plus';
 
-const dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: lazyPlugins(() => [dts({ insertTypesEntry: true })]),
-  build: {
+  pack: {
+    entry: 'src/index.ts',
+    format: ['es'],
+    platform: 'browser',
+    dts: true,
     minify: true,
-    lib: {
-      entry: path.resolve(dirname, 'src/index.ts'),
-      name: 'StaticMapsCore',
-      fileName: format => `index.${format}.js`,
-      formats: ['cjs', 'es', 'umd', 'iife'],
-    },
+    clean: true,
   },
   test: {
     environment: 'node',
