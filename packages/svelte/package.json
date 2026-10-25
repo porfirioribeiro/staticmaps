@@ -31,7 +31,6 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "1.64.1",
-		"@sveltejs/adapter-auto": "8.0.0",
 		"@sveltejs/kit": "3.1.0",
 		"@sveltejs/package": "3.0.1",
 		"@sveltejs/vite-plugin-svelte": "7.3.1",
@@ -41,7 +40,9 @@
 		"svelte-check": "4.7.7",
 		"typescript": "6.0.3",
 		"vite": "catalog:",
-		"vite-plus": "catalog:"
+		"vite-plus": "catalog:",
+		"@sveltejs/adapter-cloudflare": "8.0.1",
+		"wrangler": "4.152.0"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"

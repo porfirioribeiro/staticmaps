@@ -65,7 +65,7 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 | Node                 | unset                               | 24.22.1 (`engines`, `.node-version`, `.nvmrc`)                                                                      |
 | Svelte               | 3.47                                | 5.57.2                                                                                                              |
 | SvelteKit            | 1.0.0-next.318                      | 3.1.0                                                                                                               |
-| Svelte tooling       | svelte-check 2, svelte-preprocess 4 | svelte-check 4.7.7, `@sveltejs/vite-plugin-svelte` 7.3.1, `@sveltejs/adapter-auto` 8.0.0, `@sveltejs/package` 3.0.1 |
+| Svelte tooling       | svelte-check 2, svelte-preprocess 4 | svelte-check 4.7.7, `@sveltejs/vite-plugin-svelte` 7.3.1, `@sveltejs/adapter-cloudflare` 8.0.1, `@sveltejs/package` 3.0.1 |
 | Svelte package build | `svelte-kit package`                | `svelte-package` (reads plugin config from `vite.config.ts`)                                                        |
 | React                | 18.0                                | 19.3.1 (+ `@types/react` 19.3.0, plugin-react 6.1.2)                                                                |
 | React tests          | RTL 13, jest-dom 5, jsdom 19        | RTL 16.3.3, jest-dom 7.0.1, `@testing-library/dom` 10.4.2, jsdom 30.1.3                                             |
@@ -128,8 +128,10 @@ pack: {
 ### svelte
 
 - Config moves from `svelte.config.js` into `vite.config.ts`:
-  `sveltekit({ adapter: adapter(), preprocess: vitePreprocess() })`.
-  SvelteKit 3 no longer reads `svelte.config.js`.
+  `sveltekit({ adapter: cloudflare(), preprocess: vitePreprocess() })`.
+  SvelteKit 3 no longer reads `svelte.config.js`. The demo targets Cloudflare Pages, so the
+  explicit `@sveltejs/adapter-cloudflare` replaces `adapter-auto` (auto-installing it during a
+  Pages build fails under pnpm 12's build-script policy).
 - Routes restructure: `__layout.svelte` → `+layout.svelte` (children snippet via `$props()`),
   `index.svelte` → `+page.svelte`, `polygon.svelte` / `linestring.svelte` / `server-side.svelte`
   → `<name>/+page.svelte`. `prerender`/`csr` exports move to `server-side/+page.ts`;
