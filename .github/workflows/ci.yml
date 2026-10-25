@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # core's exports point at dist, so dependents need it before type-checking/testing
+      - run: pnpm -C packages/core run build
+
+      - run: pnpm exec vp check
+
+      - run: pnpm -C packages/svelte run check
+
+      - run: pnpm test
+
+      - run: pnpm build
+
+      - run: pnpm check:dist
+
+      - run: pnpm -C packages/svelte exec playwright install --with-deps chromium
+
+      - run: pnpm test:e2e

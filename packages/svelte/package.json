@@ -1,40 +1,53 @@
 {
 	"name": "@staticmaps/svelte",
 	"version": "0.0.1",
+	"type": "module",
+	"imports": {
+		"#lib": "./src/lib/index.ts",
+		"#lib/*": "./src/lib/*"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
 	"scripts": {
-		"dev": "svelte-kit dev",
-		"build:demo": "svelte-kit build",
-		"build": "svelte-kit package",
-		"preview": "svelte-kit preview",
+		"dev": "vp dev",
+		"build": "svelte-package -i src/lib -o dist",
+		"build:demo": "vp build",
+		"preview": "vp preview",
 		"prepare": "svelte-kit sync",
-		"test": "playwright test",
+		"test:e2e": "playwright test",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore src",
-		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+		"predev": "pnpm -C ../core run build",
+		"precheck": "pnpm -C ../core run build",
+		"pretest:e2e": "pnpm -C ../core run build"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.21.1",
-		"@sveltejs/adapter-auto": "1.0.0-next.36",
-		"@sveltejs/kit": "1.0.0-next.318",
-		"@typescript-eslint/eslint-plugin": "^5.20.0",
-		"@typescript-eslint/parser": "^5.20.0",
-		"c8": "^7.11.2",
-		"eslint": "^8.13.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte3": "^3.4.1",
-		"prettier": "^2.6.2",
-		"prettier-plugin-svelte": "^2.7.0",
-		"sass": "^1.50.1",
-		"svelte": "^3.47.0",
-		"svelte-check": "^2.7.0",
-		"svelte-preprocess": "^4.10.6",
-		"svelte2tsx": "^0.5.9",
-		"tslib": "^2.3.1",
-		"typescript": "~4.6.3"
+		"@playwright/test": "1.64.1",
+		"@sveltejs/kit": "3.1.0",
+		"@sveltejs/package": "3.0.1",
+		"@sveltejs/vite-plugin-svelte": "7.3.1",
+		"@tsconfig/svelte": "5.0.8",
+		"sass": "1.106.1",
+		"svelte": "5.57.2",
+		"svelte-check": "4.7.7",
+		"typescript": "6.0.3",
+		"vite": "catalog:",
+		"vite-plus": "catalog:",
+		"@sveltejs/adapter-cloudflare": "8.0.1",
+		"wrangler": "4.152.0"
 	},
-	"type": "module",
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
 	"dependencies": {
-		"@staticmaps/core": "^1.0.0"
+		"@staticmaps/core": "workspace:*"
 	}
 }

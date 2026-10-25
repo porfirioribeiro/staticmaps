@@ -1,7 +1,8 @@
+import { expect, test } from 'vite-plus/test';
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { StaticMap } from './StaticMap';
 
 test('renders', () => {

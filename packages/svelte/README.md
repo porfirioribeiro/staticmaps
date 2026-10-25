@@ -1,40 +1,21 @@
-# create-svelte
+# @staticmaps/svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Svelte 5 bindings for [`@staticmaps/core`](../core), plus a SvelteKit 3 demo.
 
-## Creating a project
+## Requirements
 
-If you're seeing this, you've probably already done this step. Congrats!
+Node 24 LTS and pnpm 12. The package is ESM-only.
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Development
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install
+pnpm -C packages/svelte dev         # SvelteKit demo
+pnpm -C packages/svelte build       # svelte-package -> dist/
+pnpm -C packages/svelte build:demo  # production demo build
+pnpm -C packages/svelte check       # svelte-check
+pnpm -C packages/svelte test:e2e    # Playwright smoke test
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The library is built with `svelte-package`; the demo and its configuration live in
+`vite.config.ts` (SvelteKit 3 no longer reads `svelte.config.js`).

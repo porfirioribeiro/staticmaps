@@ -1,13 +1,27 @@
 {
   "name": "staticmaps",
-  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "author": "Porf\u00edrio Ribeiro <porfirioribeiro@gmail.com>",
   "license": "MIT",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "typescript": "6.0.3",
+    "vite-plus": "catalog:"
+  },
   "scripts": {
-    "test": "pnpm run -r test",
-    "build": "pnpm run -r build",
-    "format": "pnpm run -r format",
-    "build:ci": "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm build && npx pnpm run build:demo -C packages/svelte"
+    "build": "vp run -r build",
+    "build:ci": "pnpm install --frozen-lockfile && vp run -r build && pnpm -C packages/svelte run build:demo",
+    "check": "vp check",
+    "lint": "vp lint",
+    "fmt": "vp fmt . --write",
+    "format": "vp fmt . --write",
+    "test": "pnpm -C packages/core run build && vp run -r test",
+    "test:e2e": "pnpm -C packages/svelte exec playwright test",
+    "check:dist": "node scripts/check-dist.mjs"
   }
 }

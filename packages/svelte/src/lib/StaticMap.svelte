@@ -2,60 +2,37 @@
 	import {
 		createStaticMap,
 		dashedKeys,
-		type StaticMapOptions,
-		type StaticMapsState
+		type StaticMapOptions
 	} from '@staticmaps/core';
 
-	export let options: StaticMapOptions;
+	let { options }: { options: StaticMapOptions } = $props();
 
-	let {
-		width,
-		height,
-		viewBox,
-		tiles,
-		polygons,
-		lineStrings,
-		overlayImages,
-		markers,
-		attribution
-	} = {} as StaticMapsState;
-
-	$: ({
-		width,
-		height,
-		viewBox,
-		tiles,
-		polygons,
-		lineStrings,
-		overlayImages,
-		markers,
-		attribution
-	} = createStaticMap(options));
+	const state = $derived(createStaticMap(options));
 </script>
 
-<svg {width} {height} {viewBox}>
-	{#each tiles as tile}
+<svg width={state.width} height={state.height} viewBox={state.viewBox}>
+	{#each state.tiles as tile}
 		<image {...tile} />
 	{/each}
-	{#each overlayImages as overlayImage}
+	{#each state.overlayImages as overlayImage}
 		<image {...overlayImage} />
 	{/each}
-	{#each polygons as polygon}
+	{#each state.polygons as polygon}
 		<path {...dashedKeys(polygon)} vector-effect="non-scaling-stroke" />
 	{/each}
-	{#each lineStrings as lineString}
+	{#each state.lineStrings as lineString}
 		<path {...dashedKeys(lineString)} fill="transparent" vector-effect="non-scaling-stroke" />
 	{/each}
-	{#each markers as marker}
+	{#each state.markers as marker}
 		<image {...marker} />
 	{/each}
 
-	{#if width >= 200}
-		<foreignObject x="0" y="0" {width} {height}>
-			<div>{@html attribution}</div>
+	{#if state.width >= 200}
+		<foreignObject x="0" y="0" width={state.width} height={state.height}>
+			<div>{@html state.attribution}</div>
 		</foreignObject>
 	{:else}
-		<title>{@html attribution}</title>
+		<title>{@html state.attribution}</title>
 	{/if}
 </svg>
 

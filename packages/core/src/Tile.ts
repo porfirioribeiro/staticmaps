@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { StaticMapCtx, RenderedImage } from './types';
 import { xToPx, yToPx } from './geo';
 import { defaultSize } from './utils';

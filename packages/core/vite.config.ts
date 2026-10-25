@@ -1,22 +1,16 @@
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import path from 'path';
+import { defineConfig } from 'vite-plus';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [dts({ insertTypesEntry: true })],
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      mangle: {
-        properties: { regex: '^_' },
-      },
-    },
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'StaticMapsCore',
-      fileName: format => `index.${format}.js`,
-      formats: ['cjs', 'es', 'umd', 'iife'],
-    },
+  pack: {
+    entry: 'src/index.ts',
+    format: ['es'],
+    platform: 'browser',
+    dts: true,
+    minify: true,
+    clean: true,
+  },
+  test: {
+    environment: 'node',
+    coverage: { provider: 'v8', reporter: ['text', 'lcov'] },
   },
 });

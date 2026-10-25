@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "moduleResolution": "Node"
+    "jsx": "react-jsx",
+    "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "demo", "vite-env.d.ts"]
 }

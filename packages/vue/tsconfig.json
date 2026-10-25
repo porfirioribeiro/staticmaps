@@ -3,14 +3,19 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "noEmit": true,
     "lib": ["esnext", "dom"]
   },
-  "include": ["demo/**/*.ts", "demo/**/*.d.ts", "demo/**/*.vue", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "demo/**/*.ts", "demo/**/*.d.ts", "demo/**/*.vue", "src/**/*.vue"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

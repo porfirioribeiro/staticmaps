@@ -1,40 +1,19 @@
-/// <reference types="vitest" />
-
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import dts from 'vite-plugin-dts';
-import * as path from 'path';
+import { defineConfig } from 'vite-plus';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), dts({ insertTypesEntry: true })],
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      mangle: {
-        properties: { regex: '^_' },
-      },
-    },
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'StaticMapsVue',
-      fileName: format => `index.${format}.js`,
-      formats: ['cjs', 'es', 'umd', 'iife'],
-    },
-    rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      external: ['vue', '@staticmaps/core'],
-      output: {
-        globals: {
-          vue: 'Vue',
-          '@staticmaps/core': 'StaticMapsCore',
-        },
-      },
-    },
+  plugins: [vue()],
+  pack: {
+    entry: 'src/index.ts',
+    format: ['es'],
+    platform: 'browser',
+    dts: false,
+    minify: true,
+    clean: true,
+    plugins: [vue()],
   },
   test: {
-    globals: true,
     environment: 'happy-dom',
+    coverage: { provider: 'v8', reporter: ['text', 'lcov'] },
   },
 });

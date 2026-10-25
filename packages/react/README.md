@@ -6,12 +6,13 @@ It uses svg to render the tiles and the vectors for the Polygon. You can specify
 
 ![demo](demo.png)
 
-## Instalation
+## Installation
 
-> yarn add @staticmaps/react
+> pnpm add @staticmaps/react
+
+The package is ESM-only and requires React 18 or 19.
 
 ## Usage
-
 
 ```typescript
 <StaticMap
@@ -33,7 +34,16 @@ It uses svg to render the tiles and the vectors for the Polygon. You can specify
 
 ## Demo
 
-See a simple demo [here](https://staticmaps-react.netlify.app/)
+See a simple demo [here](https://staticmaps-react.netlify.app/).
 
-> pnpm start
+```bash
+pnpm -C packages/react start   # builds @staticmaps/core first
+```
 
+## Development
+
+```bash
+pnpm -C packages/react start   # React 19 demo
+pnpm -C packages/react build   # vp pack -> dist/index.js + index.d.ts (ESM)
+pnpm -C packages/react test
+```

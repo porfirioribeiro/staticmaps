@@ -1,3 +1,3 @@
 {
-  "recommendations": ["editorconfig.editorconfig", "esbenp.prettier-vscode", "johnsoncodehk.volar", "svelte.svelte-vscode"]
+  "recommendations": ["editorconfig.editorconfig", "oxc.oxc-vscode", "svelte.svelte-vscode", "Vue.volar"]
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { osmTileProvider } from '@staticmaps/core';
-	import StaticMap from '$lib/StaticMap.svelte';
+	import StaticMap from '#lib/StaticMap.svelte';
 </script>
 
 <h1 class="py-8">Polygons</h1>
@@ -99,7 +99,7 @@
 <p class="my-24">
 	<a
 		target="__blank"
-		href="https://github.com/porfirioribeiro/staticmaps/blob/main/packages/svelte/src/routes/polygon.svelte"
+		href="https://github.com/porfirioribeiro/staticmaps/blob/main/packages/svelte/src/routes/polygon/+page.svelte"
 		>See source on GitHub</a
 	>
 </p>

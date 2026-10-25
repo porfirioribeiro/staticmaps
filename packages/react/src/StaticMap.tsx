@@ -10,7 +10,7 @@ interface StaticMapProps extends StaticMapOptions {
   style?: React.CSSProperties;
 }
 
-export function StaticMap(props: StaticMapProps) {
+export function StaticMap(props: StaticMapProps): React.ReactElement {
   const { className, style } = props;
   delete props.className;
   delete props.style;

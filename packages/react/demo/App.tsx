@@ -1,4 +1,3 @@
-import React from 'react';
 import { esriWorldImageryTileProvider, osmTileProvider } from '@staticmaps/core';
 import { StaticMap } from '../src';
 import { rosaMP, rosaMarker1 } from './res/rosa';
