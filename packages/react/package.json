@@ -25,7 +25,8 @@
   "scripts": {
     "start": "vp dev ./demo/",
     "build": "vp pack",
-    "test": "vp test run --coverage"
+    "test": "vp test run --coverage",
+    "prestart": "pnpm -C ../core run build"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.2",

@@ -13,6 +13,7 @@ export default defineConfig({
     },
     ignorePatterns: ['**/dist/**', '**/.svelte-kit/**', '**/coverage/**', '**/test-results/**', '**/playwright-report/**', '**/*.cjs'],
     rules: {
+      'typescript/no-explicit-any': 'warn',
       'vite-plus/prefer-vite-plus-imports': 'error',
     },
     options: {

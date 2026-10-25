@@ -24,7 +24,10 @@
 		"prepare": "svelte-kit sync",
 		"test:e2e": "playwright test",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"predev": "pnpm -C ../core run build",
+		"precheck": "pnpm -C ../core run build",
+		"pretest:e2e": "pnpm -C ../core run build"
 	},
 	"devDependencies": {
 		"@playwright/test": "1.64.1",
@@ -41,7 +44,7 @@
 		"vite-plus": "catalog:"
 	},
 	"peerDependencies": {
-		"svelte": "^5.57.2"
+		"svelte": "^5.0.0"
 	},
 	"dependencies": {
 		"@staticmaps/core": "workspace:*"

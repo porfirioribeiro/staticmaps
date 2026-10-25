@@ -20,8 +20,8 @@
     "lint": "vp lint",
     "fmt": "vp fmt . --write",
     "format": "vp fmt . --write",
-    "pretest": "pnpm -C packages/core run build",
-    "test": "vp run -r test",
-    "test:e2e": "pnpm -C packages/svelte run build:demo && pnpm -C packages/svelte exec playwright test"
+    "test": "pnpm -C packages/core run build && vp run -r test",
+    "test:e2e": "pnpm -C packages/svelte exec playwright test",
+    "check:dist": "node scripts/check-dist.mjs"
   }
 }

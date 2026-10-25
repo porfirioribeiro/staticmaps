@@ -27,6 +27,9 @@ pnpm test:e2e     # builds the Svelte demo and runs Playwright
 pnpm exec vp check
 ```
 
+The demos and type checks import `@staticmaps/core` from its `dist`, and the package dev scripts build it
+first. Run `pnpm build` once after cloning if you use other commands directly.
+
 Libraries are **ESM-only** (`dist/index.js` + `dist/index.d.ts`). There are no CommonJS, UMD, or
 IIFE builds, so `require()` and `<script>` global usage are no longer supported. This is a
 breaking change for consumers that relied on those formats.

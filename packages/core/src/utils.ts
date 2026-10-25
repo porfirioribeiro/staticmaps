@@ -1,5 +1,3 @@
-/* eslint-disable no-continue, no-param-reassign */
-
 import { lonToX, latToY } from './geo';
 import { BBox, Position, StaticMapCtx, StaticMapOptions } from './types';
 import { eachPositionOfPolygon } from './Polygon';

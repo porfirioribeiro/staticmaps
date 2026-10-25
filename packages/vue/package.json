@@ -20,13 +20,14 @@
     "@staticmaps/core": "workspace:*"
   },
   "peerDependencies": {
-    "vue": "^3.2.0"
+    "vue": "^3.5.0"
   },
   "scripts": {
     "start": "vp dev",
     "build": "vp pack && vue-tsc -p tsconfig.build.json",
     "test": "vp test run --coverage",
-    "preview": "vp preview"
+    "preview": "vp preview",
+    "prestart": "pnpm -C ../core run build"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.10",

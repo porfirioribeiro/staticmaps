@@ -22,6 +22,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # core's exports point at dist, so dependents need it before type-checking/testing
+      - run: pnpm -C packages/core run build
+
       - run: pnpm exec vp check
 
       - run: pnpm -C packages/svelte run check
@@ -29,6 +32,8 @@ jobs:
       - run: pnpm test
 
       - run: pnpm build
+
+      - run: pnpm check:dist
 
       - run: pnpm -C packages/svelte exec playwright install --with-deps chromium
 

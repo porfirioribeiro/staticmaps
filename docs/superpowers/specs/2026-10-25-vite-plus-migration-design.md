@@ -27,23 +27,23 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 ## Non-goals
 
 - No new features or API changes to `@staticmaps/*`.
-- No `strict` TypeScript adoption; existing type strictness stays as-is unless the compiler
-  upgrade forces a change.
+- Keep the repository's original `strict: true` TypeScript setting; fix any new errors rather
+  than lowering strictness.
 - No rewrite of demo content, styling, or snapshots beyond what the upgrades require.
 - No release/version bump. ESM-only output is breaking for CJS/CDN consumers; a major bump is
   recommended but left to the release owner.
 
 ## Decisions
 
-| Decision       | Choice                                          | Why                                                                                                                                    |
-| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| TypeScript     | `6.0.3` everywhere                              | SvelteKit 3 and `svelte-check` require `^6`; TS 7 is latest but unsupported by both.                                                   |
-| Library output | ESM only via `vp pack` (tsdown)                 | Latest formats dropped by request; tsdown emits ESM + dts natively.                                                                    |
-| Node           | `24.22.1`                                       | Latest LTS today. Node 26 becomes LTS on 2026-10-27, after this change.                                                                |
-| Lint/format    | Run `vp migrate`, then keep Oxlint/Oxfmt blocks | User requirement; Oxlint lints Svelte/Vue `<script>` blocks, Oxfmt formats Svelte/Vue.                                                 |
-| Coverage       | `@vitest/coverage-v8@5.0.5`                     | `c8` is unmaintained; Vitest 5 bundles the v8 provider contract.                                                                       |
-| Vitest order   | Upgrade to Vitest 5 before `vp migrate`         | Tests are being modernized in this change, so Vitest 4 compatibility preservation is not wanted. Suite is small (3 unit specs, 1 e2e). |
-| Svelte `vite`  | Upstream `vite@8.3.5` in `packages/svelte` only | SvelteKit 3's peer is `vite@^8.0.12`; the Vite+ core alias is versioned 1.4.0 and would leave an unmet peer.                           |
+| Decision          | Choice                                                            | Why                                                                                                                                                                                                                                    |
+| ----------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TypeScript        | `6.0.3` everywhere                                                | SvelteKit 3 and `svelte-check` require `^6`; TS 7 is latest but unsupported by both.                                                                                                                                                   |
+| Library output    | ESM only via `vp pack` (tsdown)                                   | Latest formats dropped by request; tsdown emits ESM + dts natively.                                                                                                                                                                    |
+| Node              | `24.22.1`                                                         | Latest LTS today. Node 26 becomes LTS on 2026-10-27, after this change.                                                                                                                                                                |
+| Lint/format       | Run `vp migrate`, then keep Oxlint/Oxfmt blocks                   | User requirement; Oxlint lints Svelte/Vue `<script>` blocks, Oxfmt formats Svelte/Vue.                                                                                                                                                 |
+| Coverage          | `@vitest/coverage-v8@5.0.5`                                       | `c8` is unmaintained; Vitest 5 bundles the v8 provider contract.                                                                                                                                                                       |
+| Vitest order      | Upgrade to Vitest 5 before `vp migrate`                           | Tests are being modernized in this change, so Vitest 4 compatibility preservation is not wanted. Suite is small (3 unit specs, 1 e2e).                                                                                                 |
+| `vite` resolution | Vite+ core alias for every package (catalog + workspace override) | `vp build` refuses any other Vite (`Expected @voidzero-dev/vite-plus-core@1.4.0, but found vite@8.3.5`). Kit 3 works against the core in `vp build`/`vp dev`; the peer range mismatch is allowed explicitly via `peerDependencyRules`. |
 
 ## Approaches considered
 
@@ -77,6 +77,10 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 ## Build design
 
 ### core / react / vue — ESM only
+
+React's published JSX is compiled with `jsx: "react-jsx"` so `vp pack` emits `react/jsx-runtime`
+imports instead of raw JSX. Vue declarations are emitted by `vue-tsc` (`tsconfig.build.json`),
+because tsdown's dts output re-exported a hashed JS chunk with no matching declaration.
 
 `vite.config.ts` uses `defineConfig` from `vite-plus` with a `pack` block:
 
@@ -137,10 +141,13 @@ pack: {
 - `app.html` switches to `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`.
 - `tsconfig.json` extends `$app/tsconfig` with explicit `include`/`exclude`.
 - Library packaging: `svelte-package -i src/lib -o dist`; add `exports`, `files`, `svelte`,
-  `types`, and `peerDependencies: { svelte: ^5 }`.
+  `types`, and `peerDependencies: { svelte: ^5.0.0 }`.
 - Scripts: `vp dev` / `vp build` / `vp preview`; library build stays `svelte-package`.
-- `vite` stays upstream `8.3.5` here (see Decisions). `vp` still drives the commands; if Vite+
-  core conflicts at runtime, use the `vite` CLI for this app only and document the exception.
+- **Vite resolution:** `vp build` hard-fails unless `vite` resolves to
+  `@voidzero-dev/vite-plus-core`, so every package uses the catalog alias, including this one.
+  SvelteKit 3's `vite@^8.0.12` peer is satisfied in behavior by the Vite 8.3 core; the
+  version-range mismatch is explicitly allowed in `pnpm-workspace.yaml`
+  (`peerDependencyRules.allowedVersions`). `vp build` and `vp dev` are the verified path.
 
 ### Root toolchain and lint/format
 
@@ -149,9 +156,9 @@ pack: {
     `trailingComma: 'all'`, `printWidth: 140`, `arrowParens: 'avoid'`) plus a
     `packages/svelte/**` override for tabs.
   - `lint`: converted from `packages/svelte/.eslintrc.cjs` and
-    `@typescript-eslint/recommended` — TypeScript plugin, correctness rules, and the
-    `no-explicit-any` downgrade the old config implied. Proposed type-aware/type-check
-    options enabled only if they pass on the old codebase.
+    `@typescript-eslint/recommended` — TypeScript plugin, correctness rules, and
+    `typescript/no-explicit-any` as a warning. Type-aware/type-check options are enabled;
+    they pass on the migrated codebase.
   - Old `.prettierrc`, `packages/svelte/.prettierrc`, and `packages/svelte/.eslintrc.cjs`
     are deleted after the migration is verified. `c8`, `eslint`, `prettier`,
     `prettier-plugin-svelte`, `typescript-eslint`, `eslint-plugin-svelte`, `svelte-preprocess`,
@@ -162,12 +169,13 @@ pack: {
   `lint`/`fmt` blocks.
 - Scripts: `build`/`test` keep recursive semantics via `vp run -r …`; add `lint` (`vp lint`),
   `fmt` (`vp fmt`), `check` (`vp check`), `test:e2e`.
-- `build:ci` becomes `pnpm install --frozen-lockfile && vp run -r build && vp -C packages/svelte build:demo`.
+- `build:ci` becomes `pnpm install --frozen-lockfile && pnpm build && pnpm -C packages/svelte run build:demo`.
 - `pnpm-workspace.yaml`: toolchain catalog (`vite-plus`, `typescript`, coverage provider) and
   only-built dependencies if install requires it.
 - `.vscode`: replace Prettier/Volar recommendations with Oxc/Svelte/Volar; set Oxc formatter.
-- `.github/workflows/ci.yml`: Node 24.22.1, pnpm cache, core build, `vp check`, unit tests,
-  Svelte build + Chromium install + Playwright. Update CodeQL action majors.
+- `.github/workflows/ci.yml`: Node 24.22.1, pnpm cache, **core build before checks** (its
+  exports point at `dist`), `vp check`, `svelte-check`, unit tests, full build,
+  `check:dist` import smoke, Chromium install + Playwright. Update CodeQL action majors.
 - Regenerate `pnpm-lock.yaml` with pnpm 12.15.0.
 
 ## Ordered execution
@@ -192,6 +200,8 @@ pack: {
 - `vp run -r build` produces `dist/index.js` + `dist/index.d.ts` for the three libraries and
   `dist/` from `svelte-package`; assert no `index.cjs.js` / `umd` / `iife` files remain.
 - `vp -C packages/svelte build:demo`, `vp -C packages/svelte preview`, `playwright test`.
+- `node scripts/check-dist.mjs` parses and imports the built ESM entry points and checks their
+  named exports.
 - Manual smoke of the three demos (Svelte dev server, React and Vue dev servers).
 - `vp fmt --check` leaves no diff.
 
