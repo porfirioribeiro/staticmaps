@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 
 import { bboxExtended, bboxJoin, getMapBBox, calculateZoom, getCenter } from '../src/utils';
 import { Position, BBox } from '../src/types';

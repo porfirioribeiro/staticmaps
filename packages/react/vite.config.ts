@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vitest/config';
+import { defineConfig, lazyPlugins } from 'vite-plus';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
@@ -8,7 +8,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true })],
+  plugins: lazyPlugins(() => [react(), dts({ insertTypesEntry: true })]),
   build: {
     minify: true,
     lib: {

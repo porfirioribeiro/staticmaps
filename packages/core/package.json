@@ -19,16 +19,17 @@
   "umd:main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "vitest run --coverage"
+    "build": "vp build",
+    "dev": "vp build --watch",
+    "test": "vp test run --coverage"
   },
   "devDependencies": {
     "@types/node": "26.6.5",
-    "@vitest/coverage-v8": "5.0.5",
+    "@vitest/coverage-v8": "catalog:",
     "typescript": "6.0.3",
-    "vite": "8.3.5",
+    "vite": "catalog:",
     "vite-plugin-dts": "5.1.2",
-    "vitest": "5.0.5"
+    "vitest": "catalog:",
+    "vite-plus": "catalog:"
   }
 }

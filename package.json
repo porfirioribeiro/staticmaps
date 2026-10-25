@@ -1,6 +1,6 @@
 {
   "name": "staticmaps",
-  "author": "Porfírio Ribeiro <porfirioribeiro@gmail.com>",
+  "author": "Porf\u00edrio Ribeiro <porfirioribeiro@gmail.com>",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -10,7 +10,8 @@
   },
   "devDependencies": {
     "@types/node": "26.6.5",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vite-plus": "catalog:"
   },
   "scripts": {
     "test": "pnpm run -r test",

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vitest/config';
+import { defineConfig, lazyPlugins } from 'vite-plus';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 
@@ -8,7 +8,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), dts({ insertTypesEntry: true })],
+  plugins: lazyPlugins(() => [vue(), dts({ insertTypesEntry: true })]),
   build: {
     minify: true,
     lib: {
