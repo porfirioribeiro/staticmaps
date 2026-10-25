@@ -35,11 +35,13 @@
 ### Task 1: Isolate the workspaces and pin runtimes
 
 **Files:**
+
 - Create: `.node-version`, `.nvmrc`
 - Modify: `package.json` (root)
 - Modify: `packages/svelte/.npmrc`
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: `engines.node = ">=24.11.0"`, `packageManager = "pnpm@12.15.0"`; exact Node pin readable by Vite+ (`vp env`) and CI.
 
@@ -105,6 +107,7 @@ git commit -m "chore: pin node 24.22.1 and pnpm 12.15.0"
 ### Task 2: Bump dependencies and modernize unit tests
 
 **Files:**
+
 - Modify: `package.json` (root), `tsconfig.json`
 - Modify: `packages/core/{package.json,tsconfig.json,vite.config.ts}`
 - Modify: `packages/react/{package.json,tsconfig.json,vite.config.ts}`
@@ -113,6 +116,7 @@ git commit -m "chore: pin node 24.22.1 and pnpm 12.15.0"
 - Modify: `packages/svelte/package.json`
 
 **Interfaces:**
+
 - Consumes: Task 1 pins.
 - Produces: all packages installable on Node 24 with Vite 8 / Vitest 5; test scripts runnable per package; configs still import `defineConfig` from `vitest/config` (so `vp migrate` can rewrite them in Task 4).
 
@@ -202,6 +206,7 @@ test: {
 - [ ] **Step 5: Update React**
 
 `packages/react/package.json`:
+
 - `dependencies`: `{ "@staticmaps/core": "workspace:*" }`
 - `peerDependencies`: `{ "react": "^18.0.0 || ^19.0.0" }`
 - `devDependencies`:
@@ -242,6 +247,7 @@ test: {
 - [ ] **Step 6: Update Vue**
 
 `packages/vue/package.json`:
+
 - `dependencies`: `{ "@staticmaps/core": "workspace:*" }`
 - `peerDependencies`: `{ "vue": "^3.2.0" }`
 - `devDependencies`:
@@ -331,6 +337,7 @@ git commit -m "chore(deps): upgrade toolchain and frameworks to latest"
 ### Task 3: Port the Svelte app to SvelteKit 3 + Svelte 5
 
 **Files:**
+
 - Delete: `packages/svelte/svelte.config.js`
 - Create: `packages/svelte/vite.config.ts`
 - Modify: `packages/svelte/package.json`, `packages/svelte/tsconfig.json`, `packages/svelte/src/app.html`, `packages/svelte/src/app.d.ts`
@@ -340,6 +347,7 @@ git commit -m "chore(deps): upgrade toolchain and frameworks to latest"
 - Modify: `packages/svelte/playwright.config.js`, `packages/svelte/tests/test.mjs`
 
 **Interfaces:**
+
 - Consumes: `@staticmaps/core` workspace package.
 - Produces: SvelteKit 3 app with `#lib` subpath imports; `build` emits library output to `dist/` via `svelte-package`; `build:demo` emits the app; `test:e2e` runs Playwright against port 4173.
 
@@ -512,11 +520,13 @@ git commit -m "feat(svelte): migrate to sveltekit 3 and svelte 5 runes"
 ### Task 4: Run `vp migrate` and review its lint/format migration
 
 **Files:**
+
 - Modify: every `package.json`, every `vite.config.ts`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`
 - Create/modify: root `vite.config.ts`
 - Modify: `.gitignore` if migration adds ignore entries
 
 **Interfaces:**
+
 - Consumes: a workspace that installs on Vite 8 / Vitest 5, with `.prettierrc` and `packages/svelte/.eslintrc.cjs` still present.
 - Produces: `vite-plus@1.4.0` in the packages, `vp` scripts, `vite-plus/test` imports, root `lint`/`fmt` blocks, ESLint/Prettier no longer used by scripts.
 
@@ -595,12 +605,14 @@ git commit -m "chore: migrate tooling to vite-plus (lint and format included)"
 ### Task 5: Convert libraries to ESM-only `vp pack`
 
 **Files:**
+
 - Modify: `packages/core/{package.json,vite.config.ts}`
 - Modify: `packages/react/{package.json,vite.config.ts}`
 - Modify: `packages/vue/{package.json,vite.config.ts}`
 - Delete: no source files; remove `vite-plugin-dts` dependency
 
 **Interfaces:**
+
 - Consumes: Vite+ `pack` config surface from Task 4.
 - Produces: `packages/<pkg>/dist/index.js` + `dist/index.d.ts`; package `exports` = `{ ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } }`; `files: ["dist"]`.
 
@@ -635,6 +647,7 @@ export default defineConfig({
 ```
 
 `packages/core/package.json`:
+
 - `exports`: `{ ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } }`
 - keep `"module": "./dist/index.js"`, `"types": "./dist/index.d.ts"`
 - remove `main`, `unpkg`, `esmodule`, `umd:main`
@@ -695,12 +708,14 @@ git commit -m "build: emit esm-only packages with vp pack"
 ### Task 6: Finish root tooling, CI, and remove dead configs
 
 **Files:**
+
 - Modify: `package.json` (root), `vite.config.ts` (root), `pnpm-workspace.yaml`, `.gitignore`, `.vscode/*`
 - Delete: `.prettierrc`, `packages/svelte/.prettierrc`, `packages/svelte/.eslintrc.cjs`
 - Create: `.github/workflows/ci.yml`
 - Modify: `.github/workflows/codeql-analysis.yml`
 
 **Interfaces:**
+
 - Consumes: `lint`/`fmt` blocks produced in Task 4; ESM outputs from Task 5.
 - Produces: root scripts `check`, `lint`, `fmt`, `test`, `test:e2e`, `build`, `build:ci`; CI that runs all of them on Node 24.22.1.
 
@@ -802,10 +817,12 @@ git commit -m "chore: finish vite-plus config, scripts, and ci"
 ### Task 7: Whole-branch verification and documentation
 
 **Files:**
+
 - Modify: `README.md`, `packages/*/README.md`
 - Modify: spec/plan status line if desired
 
 **Interfaces:**
+
 - Consumes: all prior tasks.
 - Produces: a green branch that can be merged; documentation of ESM-only output and the Node pin.
 

@@ -35,15 +35,15 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 
 ## Decisions
 
-| Decision | Choice | Why |
-|---|---|---|
-| TypeScript | `6.0.3` everywhere | SvelteKit 3 and `svelte-check` require `^6`; TS 7 is latest but unsupported by both. |
-| Library output | ESM only via `vp pack` (tsdown) | Latest formats dropped by request; tsdown emits ESM + dts natively. |
-| Node | `24.22.1` | Latest LTS today. Node 26 becomes LTS on 2026-10-27, after this change. |
-| Lint/format | Run `vp migrate`, then keep Oxlint/Oxfmt blocks | User requirement; Oxlint lints Svelte/Vue `<script>` blocks, Oxfmt formats Svelte/Vue. |
-| Coverage | `@vitest/coverage-v8@5.0.5` | `c8` is unmaintained; Vitest 5 bundles the v8 provider contract. |
-| Vitest order | Upgrade to Vitest 5 before `vp migrate` | Tests are being modernized in this change, so Vitest 4 compatibility preservation is not wanted. Suite is small (3 unit specs, 1 e2e). |
-| Svelte `vite` | Upstream `vite@8.3.5` in `packages/svelte` only | SvelteKit 3's peer is `vite@^8.0.12`; the Vite+ core alias is versioned 1.4.0 and would leave an unmet peer. |
+| Decision       | Choice                                          | Why                                                                                                                                    |
+| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| TypeScript     | `6.0.3` everywhere                              | SvelteKit 3 and `svelte-check` require `^6`; TS 7 is latest but unsupported by both.                                                   |
+| Library output | ESM only via `vp pack` (tsdown)                 | Latest formats dropped by request; tsdown emits ESM + dts natively.                                                                    |
+| Node           | `24.22.1`                                       | Latest LTS today. Node 26 becomes LTS on 2026-10-27, after this change.                                                                |
+| Lint/format    | Run `vp migrate`, then keep Oxlint/Oxfmt blocks | User requirement; Oxlint lints Svelte/Vue `<script>` blocks, Oxfmt formats Svelte/Vue.                                                 |
+| Coverage       | `@vitest/coverage-v8@5.0.5`                     | `c8` is unmaintained; Vitest 5 bundles the v8 provider contract.                                                                       |
+| Vitest order   | Upgrade to Vitest 5 before `vp migrate`         | Tests are being modernized in this change, so Vitest 4 compatibility preservation is not wanted. Suite is small (3 unit specs, 1 e2e). |
+| Svelte `vite`  | Upstream `vite@8.3.5` in `packages/svelte` only | SvelteKit 3's peer is `vite@^8.0.12`; the Vite+ core alias is versioned 1.4.0 and would leave an unmet peer.                           |
 
 ## Approaches considered
 
@@ -58,21 +58,21 @@ and SvelteKit `1.0.0-next.318` with Svelte 3. None of it builds on Node 24 witho
 
 ## Target versions
 
-| Area | Current | Target |
-|---|---|---|
-| Toolchain | vite 2.9, vitest 0.9, c8 7 | `vite-plus@1.4.0` (Vite 8.3 core, Vitest 5.0.5, Oxlint, Oxfmt) |
-| TypeScript | 4.6 | 6.0.3 |
-| Node | unset | 24.22.1 (`engines`, `.node-version`, `.nvmrc`) |
-| Svelte | 3.47 | 5.57.2 |
-| SvelteKit | 1.0.0-next.318 | 3.1.0 |
-| Svelte tooling | svelte-check 2, svelte-preprocess 4 | svelte-check 4.7.7, `@sveltejs/vite-plugin-svelte` 7.3.1, `@sveltejs/adapter-auto` 8.0.0, `@sveltejs/package` 3.0.1 |
-| Svelte package build | `svelte-kit package` | `svelte-package` (reads plugin config from `vite.config.ts`) |
-| React | 18.0 | 19.3.1 (+ `@types/react` 19.3.0, plugin-react 6.1.2) |
-| React tests | RTL 13, jest-dom 5, jsdom 19 | RTL 16.3.3, jest-dom 7.0.1, `@testing-library/dom` 10.4.2, jsdom 30.1.3 |
-| Vue | 3.2.33 | 3.5.44 (+ plugin-vue 6.0.10, test-utils 2.5.1, happy-dom 21.0.4) |
-| Playwright | 1.21 | 1.64.1 |
-| dts | vite-plugin-dts 1.1 | tsdown `dts: true` (no plugin) |
-| pnpm | unpinned | `packageManager: pnpm@12.15.0` |
+| Area                 | Current                             | Target                                                                                                              |
+| -------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Toolchain            | vite 2.9, vitest 0.9, c8 7          | `vite-plus@1.4.0` (Vite 8.3 core, Vitest 5.0.5, Oxlint, Oxfmt)                                                      |
+| TypeScript           | 4.6                                 | 6.0.3                                                                                                               |
+| Node                 | unset                               | 24.22.1 (`engines`, `.node-version`, `.nvmrc`)                                                                      |
+| Svelte               | 3.47                                | 5.57.2                                                                                                              |
+| SvelteKit            | 1.0.0-next.318                      | 3.1.0                                                                                                               |
+| Svelte tooling       | svelte-check 2, svelte-preprocess 4 | svelte-check 4.7.7, `@sveltejs/vite-plugin-svelte` 7.3.1, `@sveltejs/adapter-auto` 8.0.0, `@sveltejs/package` 3.0.1 |
+| Svelte package build | `svelte-kit package`                | `svelte-package` (reads plugin config from `vite.config.ts`)                                                        |
+| React                | 18.0                                | 19.3.1 (+ `@types/react` 19.3.0, plugin-react 6.1.2)                                                                |
+| React tests          | RTL 13, jest-dom 5, jsdom 19        | RTL 16.3.3, jest-dom 7.0.1, `@testing-library/dom` 10.4.2, jsdom 30.1.3                                             |
+| Vue                  | 3.2.33                              | 3.5.44 (+ plugin-vue 6.0.10, test-utils 2.5.1, happy-dom 21.0.4)                                                    |
+| Playwright           | 1.21                                | 1.64.1                                                                                                              |
+| dts                  | vite-plugin-dts 1.1                 | tsdown `dts: true` (no plugin)                                                                                      |
+| pnpm                 | unpinned                            | `packageManager: pnpm@12.15.0`                                                                                      |
 
 ## Build design
 
@@ -197,17 +197,17 @@ pack: {
 
 ## Risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
+| Risk                                                                 | Mitigation                                                                                                                      |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `vp migrate` cannot parse the legacy `.eslintrc.cjs` / `.prettierrc` | Port the rules into `lint`/`fmt` by hand from the same source; the migration outcome and deletion of old configs stay the same. |
-| Oxlint only lints `<script>` blocks in `.svelte`/`.vue` | Accepted; Oxfmt formats the whole file, and `svelte-check` covers template types. |
-| SvelteKit 3 config/API changes (`#lib`, `$app/*`, options exports) | Follow the Kit 3 migration guide; keep changes mechanical. |
-| Vite+ core vs SvelteKit’s `vite@^8` peer | Upstream `vite` in the Svelte package; fallback to Vite CLI for that app if runtime conflicts appear. |
-| tsdown output differs from Vite lib output | ESM-only output is deterministic; assert `dist/index.js` + `.d.ts` and imports. |
-| TS 6 module resolution (`node` removed) | `module: ESNext` + `moduleResolution: Bundler`; add explicit extensions where required. |
-| React 19 / Testing Library 16 snapshot drift | Regenerate snapshots only after confirming no real DOM change. |
-| ESM-only breaks CJS/CDN consumers | Documented breaking change; recommend a major release. |
-| Playwright browsers missing locally | CI installs Chromium; local runs report the missing-browser gap instead of hiding it. |
+| Oxlint only lints `<script>` blocks in `.svelte`/`.vue`              | Accepted; Oxfmt formats the whole file, and `svelte-check` covers template types.                                               |
+| SvelteKit 3 config/API changes (`#lib`, `$app/*`, options exports)   | Follow the Kit 3 migration guide; keep changes mechanical.                                                                      |
+| Vite+ core vs SvelteKit’s `vite@^8` peer                             | Upstream `vite` in the Svelte package; fallback to Vite CLI for that app if runtime conflicts appear.                           |
+| tsdown output differs from Vite lib output                           | ESM-only output is deterministic; assert `dist/index.js` + `.d.ts` and imports.                                                 |
+| TS 6 module resolution (`node` removed)                              | `module: ESNext` + `moduleResolution: Bundler`; add explicit extensions where required.                                         |
+| React 19 / Testing Library 16 snapshot drift                         | Regenerate snapshots only after confirming no real DOM change.                                                                  |
+| ESM-only breaks CJS/CDN consumers                                    | Documented breaking change; recommend a major release.                                                                          |
+| Playwright browsers missing locally                                  | CI installs Chromium; local runs report the missing-browser gap instead of hiding it.                                           |
 
 ## Rollback
 

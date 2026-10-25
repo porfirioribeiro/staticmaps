@@ -11,14 +11,7 @@ export default defineConfig({
     categories: {
       correctness: 'error',
     },
-    ignorePatterns: [
-      '**/dist/**',
-      '**/.svelte-kit/**',
-      '**/coverage/**',
-      '**/test-results/**',
-      '**/playwright-report/**',
-      '**/*.cjs',
-    ],
+    ignorePatterns: ['**/dist/**', '**/.svelte-kit/**', '**/coverage/**', '**/test-results/**', '**/playwright-report/**', '**/*.cjs'],
     rules: {
       'vite-plus/prefer-vite-plus-imports': 'error',
     },
@@ -28,6 +21,10 @@ export default defineConfig({
     },
     jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
     overrides: [
+      {
+        files: ['**/demo/**'],
+        rules: { 'no-loss-of-precision': 'off' },
+      },
       {
         files: ['packages/svelte/**'],
         env: { svelte: true, browser: true },

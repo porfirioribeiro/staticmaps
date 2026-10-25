@@ -20,7 +20,7 @@ export function bboxJoin(bbox1: BBox, bbox2: BBox): BBox {
   return [Math.min(bbox1[0], bbox2[0]), Math.min(bbox1[1], bbox2[1]), Math.max(bbox1[2], bbox2[2]), Math.max(bbox1[3], bbox2[3])];
 }
 
-export function getMapBBox({ bbox = infinityBBox, polygons, lineStrings, overlayImages, markers, tileProvider }: StaticMapOptions) {
+export function getMapBBox({ bbox = infinityBBox, polygons, lineStrings, overlayImages, markers }: StaticMapOptions) {
   if (polygons) {
     polygons.forEach(mp => eachPositionOfPolygon(mp, ll => (bbox = bboxExtended(bbox, ll))));
   }

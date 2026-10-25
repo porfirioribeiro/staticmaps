@@ -7,11 +7,15 @@ node_modules
 
 # testing
 coverage
+.vitest
+test-results
+playwright-report
 
 # production
 build
 dist
 .cache
+.svelte-kit
 
 # misc
 .DS_Store

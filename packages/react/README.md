@@ -12,7 +12,6 @@ It uses svg to render the tiles and the vectors for the Polygon. You can specify
 
 ## Usage
 
-
 ```typescript
 <StaticMap
   width={250}
@@ -36,4 +35,3 @@ It uses svg to render the tiles and the vectors for the Polygon. You can specify
 See a simple demo [here](https://staticmaps-react.netlify.app/)
 
 > pnpm start
-

@@ -31,11 +31,10 @@ describe('Utils tests', () => {
     expect(bboxJoin(bBox, bBox2)).toStrictEqual([-10.8, 38.5, -8.9, 48.5]);
   });
   it('should get mapBBox', () => {
-    const zoom = 5;
     const width = 200;
     const height = 50;
 
-    expect(getMapBBox({ polygons: [polygonCoords], tileProvider: osmTileProvider, width, height }, zoom)).toStrictEqual([
+    expect(getMapBBox({ polygons: [polygonCoords], tileProvider: osmTileProvider, width, height })).toStrictEqual([
       -8.94, 38.55, -8.92, 38.58,
     ]);
   });
